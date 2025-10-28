@@ -1,0 +1,55 @@
+site_name: Cloud Docs Hub
+site_description: Centralized documentation hub for cloud infrastructure, DevOps workflows, and development best practices
+site_author: Cloud Docs Hub Team
+site_url: https://mcuellar.github.io/cloud-docs-hub
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - AWS:
+      - Overview: aws/index.md
+  - FastAPI:
+      - Overview: fastapi/index.md
+  - FastMCP:
+      - Overview: fastmcp/index.md
+  - Github Copilot:
+      - Overview: github-copilot/index.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - tables
+
+plugins:
+  - search
