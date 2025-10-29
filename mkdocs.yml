@@ -7,13 +7,13 @@ theme:
   name: material
   palette:
     - scheme: default
-      primary: indigo
+      primary: blue grey
       accent: indigo
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: slate
-      primary: indigo
+      primary: blue grey
       accent: indigo
       toggle:
         icon: material/brightness-4
@@ -29,7 +29,8 @@ theme:
 nav:
   - Home: index.md
   - AWS:
-      - Overview: aws/index.md
+    - Overview: aws/index.md
+    - S3: aws/s3/index.md
   - FastAPI:
       - Overview: fastapi/index.md
   - FastMCP:
