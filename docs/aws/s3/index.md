@@ -16,6 +16,18 @@ Amazon S3 is an object storage service that offers industry-leading scalability,
 - **Regions**: Physical locations where buckets reside.
 - **Storage Classes**: Different cost and performance options (e.g., Standard, Intelligent-Tiering, Glacier).
 
+## Limitations
+Amazon S3 is highly scalable and reliable, but there are important limitations to consider:
+
+- **Object Size Limits**: Maximum object size is 5 TB. Single PUT uploads are limited to 5 GB; larger objects require multipart upload.
+- **Bucket Limits**: Each AWS account can create up to 100 buckets by default.
+- **Request Rate Limits**: While S3 supports high request rates, extremely high rates may require key name optimization to avoid throttling.
+- **Eventual Consistency**: Some operations (e.g., overwrite PUTS and DELETES) may exhibit eventual consistency.
+- **No Native File System Semantics**: S3 is object storage, not a traditional file system—no support for file locking or POSIX permissions.
+- **Object Immutability**: Objects cannot be modified in place; updates require uploading a new version.
+- **Metadata Size Limit**: User-defined metadata per object is limited to 2 KB.
+- **No Transactional Operations**: S3 does not support multi-object transactions or atomic renames.
+- **Cost Considerations**: Frequent access, small object sizes, or high request rates can increase costs.
 ## Configuration Best Practices
 
 #### Bucket Naming
@@ -107,6 +119,9 @@ Below are key S3 configuration options, including details on storage classes, pr
 - **S3 Glacier Flexible Retrieval**: Long-term archives, compliance data, digital preservation.
 - **S3 Glacier Deep Archive**: Regulatory archives, rarely accessed data, digital preservation.
 
+
+
+For the latest and most detailed limitations, refer to the [S3 documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/limits.html).
 
 ## Common AWS CLI Commands
 
