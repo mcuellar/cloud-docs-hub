@@ -57,6 +57,9 @@ pip install -r requirements.txt
 ```bash
 # Start the development server
 mkdocs serve
+
+# Optional. If auto-reload not working
+mkdocs serve --livereload
 ```
 
 The documentation site will be available at `http://127.0.0.1:8000/`
