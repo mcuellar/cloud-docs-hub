@@ -1,4 +1,4 @@
-site_name: Cloud Docs Hub
+site_name: Cloud Docs Hub -  Gaston (Marcelo) Cuellar
 site_description: Centralized documentation hub for cloud infrastructure, DevOps workflows, and development best practices
 site_author: Cloud Docs Hub Team
 site_url: https://mcuellar.github.io/cloud-docs-hub
@@ -31,6 +31,7 @@ nav:
   - AWS:
     - Overview: aws/index.md
     - S3: aws/s3/index.md
+    - EC2: aws/ec2/index.md
   - FastAPI:
       - Overview: fastapi/index.md
   - FastMCP:
