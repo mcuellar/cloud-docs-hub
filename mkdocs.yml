@@ -30,7 +30,10 @@ nav:
   - Home: index.md
   - AWS:
     - Overview: aws/index.md
-    - S3: aws/s3/index.md
+    - S3: 
+      - Overview: aws/s3/index.md
+      - Practice Tests:
+          - Test 1: aws/s3/practice-tests/s3-test1.md
     - EC2: aws/ec2/index.md
   - FastAPI:
       - Overview: fastapi/index.md
