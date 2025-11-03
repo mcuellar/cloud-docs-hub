@@ -1,3 +1,8 @@
+---
+title: Tutorial 1
+icon: material/trophy
+---
+
 # Amazon S3 Multiple Choice Test
 
 Test your knowledge of Amazon S3 based on the comprehensive guide.
@@ -11,7 +16,7 @@ B) 5 TB
 C) 1 TB  
 D) 50 GB
 
-**Answer:** A
+
 
 ---
 
@@ -22,7 +27,7 @@ B) Bucket names can contain uppercase letters
 C) Bucket names must be between 3 and 63 characters  
 D) Bucket names can contain hyphens
 
-**Answer:** B
+
 
 ---
 
@@ -33,7 +38,7 @@ B) Versioning
 C) Server-Side Encryption  
 D) Access Logging
 
-**Answer:** B
+
 
 ---
 
@@ -44,7 +49,7 @@ B) S3 Intelligent-Tiering
 C) S3 Glacier Deep Archive  
 D) S3 One Zone-IA
 
-**Answer:** C
+
 
 ---
 
@@ -55,7 +60,7 @@ B) aws s3api enable-versioning --bucket my-bucket
 C) aws s3 put-versioning --bucket my-bucket --enable  
 D) aws s3api set-versioning --bucket my-bucket --enabled
 
-**Answer:** A
+
 
 ---
 
@@ -66,7 +71,7 @@ B) Use S3 Block Public Access settings
 C) Disable server-side encryption  
 D) Use only the default IAM policy
 
-**Answer:** B
+
 
 ---
 
@@ -77,7 +82,7 @@ B) Hierarchical namespace similar to a file system
 C) Unlimited free storage  
 D) Built-in static website hosting
 
-**Answer:** B
+
 
 ---
 
@@ -88,7 +93,7 @@ B) aws s3 sync ./local-folder s3://my-bucket/
 C) aws s3 upload ./local-folder s3://my-bucket/  
 D) aws s3api sync ./local-folder s3://my-bucket/
 
-**Answer:** B
+
 
 ---
 
@@ -99,7 +104,7 @@ B) 100
 C) 1000  
 D) Unlimited
 
-**Answer:** B
+
 
 ---
 
@@ -110,8 +115,24 @@ B) Lifecycle Policies
 C) Object Lock  
 D) Event Notifications
 
-**Answer:** B
+
+---
+*End of Test*
+
 
 ---
 
-*End of Test*
+
+## Answer Sheet
+
+**1.** A
+**2.** B
+**3.** B
+**4.** C
+**5.** A
+**6.** B
+**7.** B
+**8.** B
+**9.** B
+**10.** B
+
