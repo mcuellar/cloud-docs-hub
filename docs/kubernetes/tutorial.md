@@ -330,12 +330,12 @@ Sign in to Play with k8s
 ### Create Your Kubernetes Cluster
 Once signed in, follow these steps to set up your cluster:
 
-Step 1: Start a New Session:
+#### Step 1: Start a New Session:
 Click on the "Start" button to initiate a new session.​ This will create a new session giving you about 4 hours of play time, after which the cluster and it’s resources will be automatically terminated.
 
 Play with k8s timed session
 
-Step 2: Add Instances:
+#### Step 2: Add Instances:
 Then click on "+ Add New Instance" to create a new node (Virtual Machine).
 
 Create new master node (VM)
@@ -344,40 +344,109 @@ This will open a terminal window where you can run commands.​
 
 Terminal of newly created node
 
-Step 3: Initialize the Master Node:
+#### Step 3: Initialize the Master Node:
 In the terminal, run the following command to initialize the master node:​
 
-kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr <SPECIFIED_IP_ADDRESS>
+```bash
+kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr 
+<SPECIFIED_IP_ADDRESS>
+```
+
+OUTPUT SAMPLE
+```
+[node1 ~]$ kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr 192.168.0.23/16
+Initializing machine ID from random generator.
+W1103 21:30:22.332745     918 initconfiguration.go:120] Usage of CRI endpoints without URL scheme is deprecated and can cause kubelet errors in the future. Automatically prepending scheme "unix" to the "criSocket" with value "/run/docker/containerd/containerd.sock". Please update your configuration!
+I1103 21:30:27.977689     918 version.go:256] remote version is much newer: v1.34.1; falling back to: stable-1.27
+[init] Using Kubernetes version: v1.27.16
+[preflight] Running pre-flight checks
+[preflight] The system verification failed. Printing the output from the verification:
+KERNEL_VERSION: 4.4.0-210-generic
+OS: Linux
+CGROUPS_CPU: enabled
+CGROUPS_CPUACCT: enabled
+CGROUPS_CPUSET: enabled
+CGROUPS_DEVICES: enabled
+CGROUPS_FREEZER: enabled
+CGROUPS_MEMORY: enabled
+CGROUPS_PIDS: enabled
+CGROUPS_HUGETLB: enabled
+CGROUPS_BLKIO: enabled
+```
+
 You can find the command in the terminal. In my case, the IP address is 10.5.0.0/16. Replace the <SPECIFIED_IP_ADDRESS> placeholder with the IP address specified in your terminal.
 
 Initialize the master node and the control plane
 
 This process will set up the control plane of your Kubernetes cluster.​
 
-Step 4: Add Worker Nodes:
+#### Step 4: Add Worker Nodes:
 If you want to add worker nodes, in the master node terminal, you'll find a kubeadm join... command after running the kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr <SPECIFIED_IP_ADDRESS> command.
 
 Command to add worker node to control plane
 
 Click on "+ Add New Instance" to create another node just as you did earlier.
 
-Run this command in the new node's terminal to join it to the cluster:
+Run this command in the new node's terminal to join it to the cluster.  Ensure it's in 1 line.
+
+SAMPLE COMMAND
+```bash
+kubeadm join 192.168.0.23:6443 --token 33d2ot.30qdyhgtodumz54z --discovery-token-ca-cert-hash sha256:9377781315e1b155a55c0d745bdc93249b6f8f431bd5194a259825ab136da918 
+```
 
 Add worker node to control plane
 
-Step 5: Configure the Cluster’s networking:
+SAMPLE OUTPUT (PARTIAL)
+```bash
+Initializing machine ID from random generator.
+W1103 21:56:01.139680     580 initconfiguration.go:120] Usage of CRI endpoints without URL scheme is deprecated and can cause kubelet errors in the future. Automatically prepending scheme "unix" to the "criSocket" with value "/run/docker/containerd/containerd.sock". Please update your configuration!
+[preflight] Running pre-flight checks
+[preflight] The system verification failed. Printing the output from the verification:
+KERNEL_VERSION: 4.4.0-210-generic
+OS: Linux
+CGROUPS_CPU: enabled
+CGROUPS_CPUACCT: enabled
+CGROUPS_CPUSET: enabled
+CGROUPS_DEVICES: enabled
+CGROUPS_FREEZER: enabled
+CGROUPS_MEMORY: enabled
+CGROUPS_PIDS: enabled
+CGROUPS_HUGETLB: enabled
+CGROUPS_BLKIO: enabled
+```
+
+#### Step 5: Configure the Cluster’s networking:
 Navigate to the master node, and run the command below to configure the cluster’s networking.
 
+```bash
 kubectl apply -f https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kubeadm-kuberouter.yaml
-Configure networking in the cluster
+```
 
-Step 6: Verify the Cluster:
+SAMPLE OUTPUT
+```bash
+configmap/kube-router-cfg created
+daemonset.apps/kube-router created
+serviceaccount/kube-router created
+clusterrole.rbac.authorization.k8s.io/kube-router created
+clusterrolebinding.rbac.authorization.k8s.io/kube-router created
+```
+
+#### Step 6: Verify the Cluster:
 In the master node terminal (the first node with the highlighted user profile), run:​
 
+```bash
 kubectl get nodes
+```
+
 You should see a list of nodes in your cluster, including the master and any worker nodes you've added.​
 
-Nodes in the cluster
+
+SAMPLE OUTPUT - Nodes in the cluster
+```bash
+NAME    STATUS   ROLES           AGE     VERSION
+node1   Ready    control-plane   12m     v1.27.2
+node2   Ready    <none>          4m25s   v1.27.2
+```
 
 Congratulations! You just created your very own Kubernetes cluster with 2 VMs: the master node (where the control plane resides), and the worker nodes (where the Kubernetes workloads, for example Pods, will be deployed).
 
@@ -392,33 +461,91 @@ In the imperative approach, you directly issue commands to the Kubernetes API to
 
 Imagine telling someone, "Turn on the light." You're giving a direct command, and the action happens right away. Similarly, with imperative commands, you instruct Kubernetes step-by-step on what to do.
 
-Example:
+`Example:`
 To create a pod running an NGINX container, run the below command in the terminal of the master node:​
 
+CREATE NGINX POD
+```bash
 kubectl run nginx-pod --image=nginx
+```
+
+OUTPUT
+```bash
+pod/nginx-pod created
+```
+
 Now wait a few seconds and run the command below to check the status of the pod:
 
+```bash
 kubectl get pods
+```
+
+OUTPUT
+```bash
+NAME        READY   STATUS    RESTARTS   AGE
+nginx-pod   1/1     Running   0          55s
+```
+
 You should get a response similar to this
 
 Get pods running in the cluster
 
 Now let’s expose our Pod to the internet by creating a Service. Run the command below to expose the Pod:
 
+```bash
 kubectl expose pod nginx-pod --type=NodePort --port=80
+```
+
+OUTPUT
+```bash
+service/nginx-pod exposed
+```
+
 To get the IP address of the Cluster so we can access our Pod, run the command below:
 
+```bash
 kubectl get svc
+```
+
 The command displays the IP address from which we can access our service. You should get an output similar to this:
 
 Get service IP address
 
 Now, copy the IP address for the nginx-pod service and run the command below to make a request to your Pod:
 
+```bash
 curl <YOUR-SERVICE-IP-ADDRESS>
+```
 Replace the <YOUR-SERVICE-IP-ADDRESS> placeholder with the IP address of your nginx-pod service. In my case, it’s 10.98.108.173.
 
 You should get a response from your nginx-pod Pod:
+
+OUTPUT
+```
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+```
 
 Make a request to the Nginx Pod running in the Cluster
 
@@ -454,10 +581,16 @@ We already have a GitHub repo that contains the two manifest files we need. Let�
 
 Run this in the terminal (on your master node):
 
+```bash
 git clone https://github.com/onukwilip/simple-kubernetes-app
+```
+
 Now, let’s go into the folder:
 
+```bash
 cd simple-kubernetes-app
+```
+
 You should see two files:
 
 deployment.yaml
@@ -469,6 +602,7 @@ This manifest will tell Kubernetes to deploy our app and ensure it’s always ru
 
 Here’s what’s inside:
 
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -486,19 +620,22 @@ spec:
       containers:
       - name: nginx
         image: nginx
+
+```
+
 Now, let’s break this down:
 
-apiVersion: apps/v1: This tells Kubernetes which version of the API we’re using to define this object.
+`apiVersion`: apps/v1: This tells Kubernetes which version of the API we’re using to define this object.
 
-kind: Deployment: This means we’re creating a Deployment (a controller that manages Pods).
+`kind`: Deployment: This means we’re creating a Deployment (a controller that manages Pods).
 
-metadata.name: We’re giving our Deployment a name: nginx-deployment.
+`metadata.name`: We’re giving our Deployment a name: nginx-deployment.
 
-spec.replicas: 3: We’re telling Kubernetes: “Please run 3 copies (replicas) of this app.”
+`spec.replicas`: 3: We’re telling Kubernetes: “Please run 3 copies (replicas) of this app.”
 
-selector.matchLabels: Kubernetes will use this label to find which Pods this Deployment is managing.
+`selector.matchLabels`: Kubernetes will use this label to find which Pods this Deployment is managing.
 
-template.metadata.labels & spec.containers: This section describes the Pods that the Deployment should create – each Pod will run a container using the official nginx image.
+`template.metadata.labels & spec.containers`: This section describes the Pods that the Deployment should create – each Pod will run a container using the official nginx image.
 
 In plain terms: We're asking Kubernetes to create and maintain 3 copies of an app that runs NGINX, and automatically restart them if any fails.
 
@@ -507,6 +644,7 @@ This file tells Kubernetes to expose our NGINX app to the outside world using a 
 
 Here’s the file – let’s break this down, too:
 
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -520,44 +658,98 @@ spec:
     port: 80
     targetPort: 80
 apiVersion: v1: We’re using version 1 of the Kubernetes API.
+```
 
-kind: Service: We’re creating a Service object.
+`kind`: Service: We’re creating a Service object.
 
-metadata.name: nginx-service: Giving it a name.
+`metadata.name`: nginx-service: Giving it a name.
 
-spec.type: NodePort: We’re exposing it through a port on the node (so we can access it via the node's IP address).
+`spec.type`: NodePort: We’re exposing it through a port on the node (so we can access it via the node's IP address).
 
-selector.app: nginx: This tells Kubernetes to connect this Service to Pods with the label app: nginx.
+`selector.app`: nginx: This tells Kubernetes to connect this Service to Pods with the label app: nginx.
 
-ports.port and targetPort: The Service will listen on port 80 and forward traffic to port 80 on the Pod.
+`ports.port and targetPort`: The Service will listen on port 80 and forward traffic to port 80 on the Pod.
 
 In plain terms: This file says, “Expose our NGINX app through the cluster’s network so we can access it from the outside world.”
 
 ###### Step 4: Clean Up Previous Resources
 If you’re still running the Pod and Service we created using the imperative approach, let’s delete them to avoid conflicts:
 
+```bash
 kubectl delete pod nginx-pod
+```
+
+OUTPUT
+```bash
+pod "nginx-pod" deleted
+```
+
+```bash
 kubectl delete service nginx-pod
+```
+
+OUTPUT
+```
+service "nginx-pod" deleted
+```
+
 ###### Step 5: Apply the Manifests
 Now let’s deploy the NGINX app and expose it – this time using the declarative way.
 
 From inside the simple-kubernetes-app folder, run:
 
+```bash
 kubectl apply -f deployment.yaml
+```
+
+OUTPUT
+```bash
+deployment.apps/nginx-deployment created
+```
+
 Then:
 
+```bash
 kubectl apply -f service.yaml
-This will create the Deployment and the Service described in the files. 🎉
+```
+
+OUTPUT
+```bash
+service/nginx-service created
+```
+
+This will create the Deployment and the Service described in the files.
 
 ###### Step 6: Check That It’s Running
 Let’s see if the Pods were created:
 
+```bash
 kubectl get pods
+```
+
+OUTPUT
+```bash
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-77b4fdf86c-l2nr4   1/1     Running   0          26s
+nginx-deployment-77b4fdf86c-l59ht   1/1     Running   0          26s
+nginx-deployment-77b4fdf86c-s95xh   1/1     Running   0          26s
+```
+
 You should see 3 Pods running!
 
 And let’s check the service:
 
+```bash
 kubectl get svc
+```
+
+OUTPUT
+```bash
+NAME            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+kubernetes      ClusterIP   10.96.0.1        <none>        443/TCP        89m
+nginx-service   NodePort    10.101.255.215   <none>        80:31551/TCP   23s
+```
+
 Look for the nginx-service. You’ll see something like:
 
 Access service NodePort
@@ -567,16 +759,42 @@ Note the NodePort (for example, 30001) as we’ll use it to access the app.
 ###### Step 7: Access the App
 You can now send a request to your app like this:
 
+```bash
 curl http://<YOUR-NODE-IP>:<NODE-PORT>
-Replace <YOUR-NODE-IP> with the IP of your master node (you’ll usually find this in Play With Kubernetes at the top of your terminal), and <NODE-PORT> with the NodePort shown in the kubectl get svc command.
+```
 
-Get master node IP address
+> Replace `YOUR-NODE-IP` with the IP of your master node (you’ll usually find this in Play With Kubernetes at the top of your terminal), and `NODE-PORT` with the NodePort shown in the kubectl get svc command.
 
-You should see the HTML content of the NGINX welcome page printed out.
+
+OUTPUT
+```bash
+[node1 simple-kubernetes-app]$ curl http://192.168.0.23:31551
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+```
 
 Now terminate the cluster environment by clicking the CLOSE SESSION button:
-
-79139f75-5e6b-4991-be74-38ecbbf2ef66
 
 #### Why Declarative Is Better (In Most Cases)
 Reusable: You can use the same files again and again.
@@ -614,7 +832,7 @@ You can configure each microservice to automatically scale — meaning it adds m
 Kubernetes supports automation and repeatability. Teams can deploy new features or microservices faster without worrying about infrastructure setup every time.
 
 For business:
-This means faster product updates, quicker response to market demands, and competitive advantage 🚀.
+This means faster product updates, quicker response to market demands, and competitive advantage.
 
 ### Consistent Environments = Fewer Bugs
 Each microservice in Kubernetes is containerized, meaning it runs with all its dependencies in a self-contained package. You can run the exact same app setup in:
@@ -631,7 +849,7 @@ This reduces bugs caused by "it works on my machine" issues and helps teams buil
 When you use cloud-managed services (like AWS Elastic Beanstalk or Azure App Service), it’s often hard to move to another provider because everything is tailored to that specific platform.
 
 With Kubernetes:
-It works the same way on AWS, Azure, GCP, or even your own data center. This means you can switch cloud providers easily and avoid being locked into one vendor – aka cloud freedom! ☁️🕊️
+It works the same way on AWS, Azure, GCP, or even your own data center. This means you can switch cloud providers easily and avoid being locked into one vendor – aka cloud freedom!
 
 ### Organizational Clarity
 Kubernetes lets you organize your apps clearly. You can group workloads by:
@@ -643,7 +861,7 @@ Environment (for example, testing, staging, production)
 This structure helps large teams collaborate better, stay organized, and manage resources efficiently.
 
 ## Disadvantages of Using Kubernetes
-Like everything in tech, Kubernetes isn’t all rainbows and rockets 🚀. Just like any other tool, it has its pros and its cons. And it's super important for startup founders, product managers, or even CEOs to know when Kubernetes is the right fit – and when it’s just overkill.
+Like everything in tech, Kubernetes isn’t all rainbows and rockets. Just like any other tool, it has its pros and its cons. And it's super important for startup founders, product managers, or even CEOs to know when Kubernetes is the right fit – and when it’s just overkill.
 
 Let’s break down the main disadvantages in a simple, honest way:
 
@@ -754,7 +972,7 @@ Let’s be honest: Kubernetes is not for everyone, especially not at the beginni
 
 In the early days of your product, when you’ve just launched and traffic is still low, Kubernetes is overkill. You don’t need its complexity (yet).
 
-👉 Instead, deploy your app or each microservice on a simple virtual machine (VM). It’s cheaper and faster to get started.
+Instead, deploy your app or each microservice on a simple virtual machine (VM). It’s cheaper and faster to get started.
 
 > You Don’t Need Auto-scaling (Yet)
 
@@ -829,7 +1047,7 @@ And also the disadvantages – like needing experienced DevOps engineers and not
 
 Finally, we wrapped up with real-life use cases, highlighting when Kubernetes is a must-have, and when it’s better to wait – especially for early-stage startups still trying to find their audience.
 
-So, whether you're a DevOps newbie, a startup founder, or just someone curious about how modern tech keeps your favorite apps online – you now have a strong foundational understanding of Kubernetes 🙌
+So, whether you're a DevOps newbie, a startup founder, or just someone curious about how modern tech keeps your favorite apps online – you now have a strong foundational understanding of Kubernetes
 
 Kubernetes is powerful, but it doesn't have to be overwhelming. With a solid grasp of the basics (which you now have), you're well on your way to managing scalable applications like a pro.
 
