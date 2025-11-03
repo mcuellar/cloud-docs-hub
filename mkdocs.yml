@@ -41,6 +41,10 @@ nav:
       - Overview: fastmcp/index.md
   - Github Copilot:
       - Overview: github-copilot/index.md
+  - Kubernetes:
+      - Overview: kubernetes/index.md
+      - Tutorials:
+          - Tutorial 1: kubernetes/tutorial.md
 
 markdown_extensions:
   - pymdownx.highlight:
