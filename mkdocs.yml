@@ -35,6 +35,8 @@ nav:
       - Practice Tests:
           - Test 1: aws/s3/practice-tests/s3-test1.md
     - EC2: aws/ec2/index.md
+    - VPC: 
+      - Overview: aws/vpc/index.md
   - FastAPI:
       - Overview: fastapi/index.md
   - FastMCP:

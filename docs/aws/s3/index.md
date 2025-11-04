@@ -1,3 +1,7 @@
+---
+title: VPC
+icon: material/bucket
+---
 # Amazon S3 Comprehensive Guide
 
 Amazon Simple Storage Service (S3) is a scalable object storage service used for backup, archiving, application data, and more. This guide covers S3 fundamentals, configuration best practices, and useful AWS CLI commands.
