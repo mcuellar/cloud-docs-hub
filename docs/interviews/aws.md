@@ -14,6 +14,107 @@
 
 ---
 
+### What are the different types of AWS Load Balancers and what are their differences?
+
+AWS offers four main types of load balancers:
+
+- **Application Load Balancer (ALB)**: Operates at Layer 7 (HTTP/HTTPS). Supports advanced routing (host-based, path-based), WebSocket, and is ideal for microservices and containerized applications (ECS/EKS).
+- **Network Load Balancer (NLB)**: Operates at Layer 4 (TCP/UDP). Handles millions of requests per second, provides ultra-low latency, and supports static IP addresses. Suitable for high-performance, real-time applications.
+- **Classic Load Balancer (CLB)**: Legacy option supporting both Layer 4 and Layer 7. Provides basic load balancing features. Use ALB or NLB for new applications.
+- **Gateway Load Balancer (GWLB)**: Operates at Layer 3. Used to deploy, scale, and manage third-party virtual appliances (e.g., firewalls, intrusion detection systems) transparently.
+
+#### Example Configurations
+
+**Application Load Balancer (ALB) - Terraform Example**
+```hcl
+resource "aws_lb" "app_lb" {
+	name               = "app-lb"
+	internal           = false
+	load_balancer_type = "application"
+	subnets            = ["subnet-12345", "subnet-67890"]
+	security_groups    = ["sg-123456"]
+}
+
+resource "aws_lb_listener" "app_lb_listener" {
+	load_balancer_arn = aws_lb.app_lb.arn
+	port              = "80"
+	protocol          = "HTTP"
+	default_action {
+		type             = "forward"
+		target_group_arn = aws_lb_target_group.app_tg.arn
+	}
+}
+```
+
+**Network Load Balancer (NLB) - Terraform Example**
+```hcl
+resource "aws_lb" "net_lb" {
+	name               = "net-lb"
+	internal           = false
+	load_balancer_type = "network"
+	subnets            = ["subnet-12345", "subnet-67890"]
+}
+
+resource "aws_lb_listener" "net_lb_listener" {
+	load_balancer_arn = aws_lb.net_lb.arn
+	port              = "80"
+	protocol          = "TCP"
+	default_action {
+		type             = "forward"
+		target_group_arn = aws_lb_target_group.net_tg.arn
+	}
+}
+```
+
+**Classic Load Balancer (CLB) - Terraform Example**
+```hcl
+resource "aws_elb" "classic_lb" {
+	name               = "classic-lb"
+	subnets            = ["subnet-12345", "subnet-67890"]
+	security_groups    = ["sg-123456"]
+
+	listener {
+		instance_port     = 80
+		instance_protocol = "http"
+		lb_port           = 80
+		lb_protocol       = "http"
+	}
+}
+```
+
+**Gateway Load Balancer (GWLB) - Terraform Example**
+```hcl
+resource "aws_lb" "gwlb" {
+	name               = "gwlb"
+	load_balancer_type = "gateway"
+	subnets            = ["subnet-12345", "subnet-67890"]
+}
+```
+
+**Summary Table**
+
+| Load Balancer Type | OSI Layer | Use Case                              | Key Features                        |
+|--------------------|-----------|---------------------------------------|-------------------------------------|
+| ALB                | 7         | Web, microservices, containers        | Advanced routing, HTTP/HTTPS        |
+| NLB                | 4         | High-performance, real-time           | TCP/UDP, static IP, low latency     |
+| CLB                | 4 & 7     | Legacy applications                   | Basic load balancing                |
+| GWLB               | 3         | Security appliances integration       | Transparent, scales appliances      |
+
+---
+
+### OSI Layer Descriptions
+The OSI (Open Systems Interconnection) model is a conceptual framework that standardizes the functions of a networking or telecommunication system into seven distinct layers. It helps guide product developers and facilitates interoperability between different systems and protocols by defining how data should be transmitted and received across a network.
+
+| Layer | Name             | Description                                               |
+|-------|------------------|----------------------------------------------------------|
+| 7     | Application      | End-user applications and network services (HTTP, SMTP)  |
+| 6     | Presentation     | Data translation, encryption, and compression            |
+| 5     | Session          | Establishes, manages, and terminates sessions            |
+| 4     | Transport        | Reliable data transfer, error recovery (TCP/UDP)         |
+| 3     | Network          | Routing, addressing, and packet forwarding (IP)          |
+| 2     | Data Link        | Node-to-node data transfer, MAC addressing               |
+| 1     | Physical         | Transmission of raw bits over physical medium            |
+
 ### VPC Peering vs Transit Gateway?
 - **VPC Peering**: Direct connection between two VPCs. No transitive routing; must create peering for each pair.
 - **Transit Gateway**: Central hub for connecting multiple VPCs and on-premises networks. Supports transitive routing and simplifies large network architectures.
