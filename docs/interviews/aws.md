@@ -14,6 +14,142 @@
 
 ---
 
+### What is an Auto Scaling Group?
+An **Auto Scaling Group (ASG)** in AWS is a service that automatically manages the number of EC2 instances in a group based on demand, health checks, and scaling policies. It helps ensure high availability and cost efficiency by scaling resources up or down as needed.
+
+**Key Features:**
+- Automatic scaling based on metrics (CPU, memory, custom CloudWatch alarms)
+- Health checks and automatic replacement of unhealthy instances
+- Integration with Elastic Load Balancer
+- Multi-AZ deployments for high availability
+- Scheduled scaling actions
+
+**Configuration Example (Terraform):**
+```hcl
+resource "aws_launch_template" "web" {
+	name_prefix   = "web-"
+	image_id      = "ami-0c55b159cbfafe1f0"
+	instance_type = "t2.micro"
+}
+
+resource "aws_autoscaling_group" "web_asg" {
+	name                      = "web-asg"
+	min_size                  = 2
+	max_size                  = 5
+	desired_capacity          = 3
+	vpc_zone_identifier       = ["subnet-12345", "subnet-67890"]
+	launch_template {
+		id      = aws_launch_template.web.id
+		version = "$Latest"
+	}
+	target_group_arns         = [aws_lb_target_group.app_tg.arn]
+	health_check_type         = "EC2"
+	health_check_grace_period = 300
+	tags = [
+		{
+			key                 = "Name"
+			value               = "WebASGInstance"
+			propagate_at_launch = true
+		}
+	]
+}
+```
+
+**Summary Table**
+
+| Feature                | Description                                      |
+|------------------------|--------------------------------------------------|
+| Scaling Policies       | Scale in/out based on metrics or schedules       |
+| Health Checks          | Replace unhealthy instances automatically        |
+| Multi-AZ Support       | Distribute instances across multiple AZs         |
+| Integration            | Works with ELB, CloudWatch, EC2                  |
+| Cost Optimization      | Runs only required number of instances           |
+
+
+### What is Route53?
+### What is Route53?
+
+**AWS Route 53** is a scalable and highly available Domain Name System (DNS) web service. It is used to route end-user requests to applications hosted in AWS or on-premises, and provides domain registration, DNS management, and health checking.
+
+**Key Features:**
+- Domain registration and management
+- DNS record management (A, AAAA, CNAME, MX, TXT, etc.)
+- Health checks and DNS-based failover
+- Traffic routing policies (Simple, Weighted, Latency, Failover, Geolocation, Geoproximity)
+- Integration with AWS services (CloudFront, S3, ELB)
+- Private hosted zones for VPCs
+
+**Configuration Example (Terraform):**
+```hcl
+resource "aws_route53_zone" "main" {
+	name = "example.com"
+}
+
+resource "aws_route53_record" "web" {
+	zone_id = aws_route53_zone.main.zone_id
+	name    = "www"
+	type    = "A"
+	ttl     = 300
+	records = ["1.2.3.4"]
+}
+```
+
+**Failover Scenario Example:**
+Route 53 can automatically route traffic to a healthy endpoint if the primary fails.
+
+```hcl
+resource "aws_route53_record" "primary" {
+	zone_id = aws_route53_zone.main.zone_id
+	name    = "app"
+	type    = "A"
+	set_identifier = "primary"
+	failover_routing_policy {
+		type = "PRIMARY"
+	}
+	health_check_id = aws_route53_health_check.primary.id
+	ttl     = 60
+	records = ["1.2.3.4"]
+}
+
+resource "aws_route53_record" "secondary" {
+	zone_id = aws_route53_zone.main.zone_id
+	name    = "app"
+	type    = "A"
+	set_identifier = "secondary"
+	failover_routing_policy {
+		type = "SECONDARY"
+	}
+	health_check_id = aws_route53_health_check.secondary.id
+	ttl     = 60
+	records = ["5.6.7.8"]
+}
+
+resource "aws_route53_health_check" "primary" {
+	type = "HTTP"
+	resource_path = "/health"
+	fqdn = "app.example.com"
+	port = 80
+}
+
+resource "aws_route53_health_check" "secondary" {
+	type = "HTTP"
+	resource_path = "/health"
+	fqdn = "app.example.com"
+	port = 80
+}
+```
+
+**Summary Table**
+
+| Feature                | Description                                   |
+|------------------------|-----------------------------------------------|
+| Domain Registration    | Register and manage domain names              |
+| DNS Management         | Create and manage DNS records                 |
+| Health Checks          | Monitor endpoint health for failover          |
+| Traffic Routing        | Multiple routing policies for global apps     |
+| Private Hosted Zones   | DNS for internal AWS resources                |
+| Integration            | Works with ELB, S3, CloudFront, etc.         |
+
 ### What are the different types of AWS Load Balancers and what are their differences?
 
 AWS offers four main types of load balancers:
