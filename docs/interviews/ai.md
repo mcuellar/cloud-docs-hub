@@ -7,6 +7,19 @@ LLM (Large Language Model) inference refers to the process of running a trained 
 
 ---
 
+### 1a. What does LLM inference mean from a consumer perspective?
+
+**Answer:**  
+From a consumer perspective, LLM inference means using a large language model to generate useful outputs in real time, such as answering questions, summarizing documents, writing code, or assisting in chatbots. The consumer interacts with an application (e.g., a website, mobile app, or API) that sends their input (prompt) to the model, which then returns a response. 
+
+**Examples:**
+- Typing a question into ChatGPT and getting an instant answer.
+- Using GitHub Copilot to autocomplete code as you type in your IDE.
+- Asking a virtual assistant to summarize an email or document.
+- Getting product recommendations or personalized content in an app powered by LLMs.
+
+---
+
 ### 2. How do you deploy an LLM for production inference?
 
 **Answer:**  
@@ -16,7 +29,7 @@ LLM (Large Language Model) inference refers to the process of running a trained 
 - Monitor latency, throughput, and resource usage.
 - Secure endpoints and manage API keys.
 
----
+---  
 
 ### 3. What is an MLOps pipeline and why is it important?
 
@@ -89,7 +102,7 @@ GitHub Copilot is an AI-powered code completion tool that suggests code snippets
 
 ---
 
-### 11. How do you monitor and evaluate LLM outputs in production?
+### 11. How do you monitor and evaluate LLM
 
 **Answer:**  
 - Collect user feedback and flag problematic outputs.
@@ -117,6 +130,31 @@ Prompt engineering is the process of designing and refining input prompts to gui
 - Test and iterate on prompt variations.
 - Avoid ambiguous or open-ended questions if precision is needed.
 - Use system messages or role instructions for multi-turn conversations.
+
+---
+
+### 13a. What are the different types of prompting techniques?
+
+**Answer:**  
+There are several prompting techniques used to guide LLMs toward desired outputs:
+
+- **Zero-shot prompting:** Asking the model to perform a task without any examples.  
+  *Example:* "Translate 'hello' to French."
+
+- **Few-shot prompting:** Providing a few examples in the prompt to help the model understand the task.  
+  *Example:* "Translate the following:
+English: hello  French: bonjour
+English: goodbye  French: au revoir
+English: thank you  French:"
+
+- **Chain-of-thought prompting:** Encouraging the model to reason step-by-step before answering.  
+  *Example:* "If a train leaves at 3pm and travels for 2 hours, what time does it arrive? Let's think step by step."
+
+- **Instruction prompting:** Giving explicit instructions or rules to follow.  
+  *Example:* "Summarize the following article in one sentence."
+
+- **Role-based/system prompting:** Setting a role or persona for the model.  
+  *Example:* "You are a helpful assistant. Answer the following question: ..."
 
 ---
 
