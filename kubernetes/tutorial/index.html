@@ -1,0 +1,3720 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Centralized documentation hub for cloud infrastructure, DevOps workflows, and development best practices">
+      
+      
+        <meta name="author" content="Cloud Docs Hub Team">
+      
+      
+        <link rel="canonical" href="https://mcuellar.github.io/cloud-docs-hub/kubernetes/tutorial/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Tutorial 1 - Cloud Docs Hub -  Gaston (Marcelo) Cuellar</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kubernetes-tutorial" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Cloud Docs Hub -  Gaston (Marcelo) Cuellar" class="md-header__button md-logo" aria-label="Cloud Docs Hub -  Gaston (Marcelo) Cuellar" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cloud Docs Hub -  Gaston (Marcelo) Cuellar
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tutorial 1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../aws/" class="md-tabs__link">
+          
+  
+  
+  AWS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../fastapi/" class="md-tabs__link">
+          
+  
+  
+  FastAPI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../fastmcp/" class="md-tabs__link">
+          
+  
+  
+  FastMCP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../github-copilot/" class="md-tabs__link">
+          
+  
+  
+  Github Copilot
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Kubernetes
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Cloud Docs Hub -  Gaston (Marcelo) Cuellar" class="md-nav__button md-logo" aria-label="Cloud Docs Hub -  Gaston (Marcelo) Cuellar" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Cloud Docs Hub -  Gaston (Marcelo) Cuellar
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AWS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    S3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/s3/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 4h18v3h-1l-2.5 14h-11L4 7H3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practice Tests
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Practice Tests
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/s3/practice-tests/s3-test1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2c-.9 0-2 1-2 2H8c0-1-1.1-2-2-2H2v9c0 1 1 2 2 2h2.2c.4 2 1.7 3.7 4.8 4v2.08C8 19.54 8 22 8 22h8s0-2.46-3-2.92V17c3.1-.3 4.4-2 4.8-4H20c1 0 2-1 2-2V2zM6 11H4V4h2zm14 0h-2V4h2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Test 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/ec2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EC2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VPC
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    VPC
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/vpc/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h1v2H2v2h4v2H5c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2H8v-2h8v2h-1c-1.11 0-2 .89-2 2v3c0 1.11.89 2 2 2h4c1.11 0 2-.89 2-2v-3c0-1.11-.89-2-2-2h-1v-2h4v-2h-9V9h1c1.11 0 2-.89 2-2V4c0-1.11-.89-2-2-2zm0 2h4v3h-4zM5 17h4v3H5zm10 0h4v3h-4z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    FastAPI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastMCP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    FastMCP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fastmcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Github Copilot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Github Copilot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../github-copilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubernetes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Kubernetes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.95 13.5h-.23c-.18.11-.26.32-.18.5l.86 2.11c.83-.53 1.46-1.32 1.79-2.25l-2.23-.36zm-3.45.29a.415.415 0 0 0-.38-.29h-.08l-2.22.37c.33.92.96 1.7 1.79 2.23l.85-2.07V14c.04-.05.04-.14.04-.21m1.83.81a.38.38 0 0 0-.51-.15c-.07.05-.12.08-.15.15h-.01l-1.09 1.97c.78.26 1.62.31 2.43.12.14-.03.29-.07.43-.12l-1.09-1.97zm3.45-4.57L14.1 11.5l.01.03a.37.37 0 0 0-.04.53q.075.09.18.12l.01.01 2.17.62c.07-.97-.14-1.95-.65-2.78m-3.11.16c.01.21.18.37.39.36.08 0 .15-.02.21-.05h.01l1.83-1.31a4.45 4.45 0 0 0-2.57-1.24zm-1.94.31c.17.11.4.08.52-.09.05-.06.07-.13.08-.21h.01l.12-2.25c-.15.02-.3.05-.46.08-.8.18-1.54.58-2.12 1.16l1.84 1.31zm-.99 1.69c.2-.05.32-.26.26-.46 0-.08-.05-.14-.11-.19v-.01L8.21 10c-.52.86-.74 1.84-.63 2.82l2.16-.62zm1.64.66.62.3.62-.3.15-.67-.43-.53h-.69l-.43.53zm10.89 1.32L20.5 6.5c-.09-.42-.37-.76-.74-.94l-7.17-3.43c-.37-.17-.81-.17-1.19 0L4.24 5.56c-.37.18-.65.52-.74.94l-1.77 7.67c-.05.2-.05.4 0 .59.01.06.03.12.05.18.03.09.08.19.13.27.03.04.05.08.09.11l4.95 6.18c.02 0 .05.04.05.06.1.09.19.16.28.22.12.08.26.14.4.17.11.05.23.05.32.05h8.12c.07 0 .14-.03.2-.05.05-.01.1-.03.14-.04.04-.02.07-.03.11-.05.05-.02.1-.05.15-.08.12-.08.23-.18.33-.28l.15-.2 4.8-5.98c.1-.12.17-.25.22-.38.02-.06.04-.12.05-.18.05-.19.05-.4 0-.59m-7.43 2.99c.02.06.04.12.07.17-.04.08-.06.17-.03.26.12.24.23.46.38.68.08.11.16.23.24.34 0 .03.03.08.04.12.12.2.06.46-.15.59s-.47.05-.59-.15c-.01-.03-.02-.05-.03-.08-.02-.03-.04-.09-.06-.09-.05-.15-.09-.28-.12-.41-.09-.25-.17-.49-.3-.72a.38.38 0 0 0-.21-.14l-.08-.16c-1.29.48-2.7.48-3.97-.01l-.1.18c-.07.01-.14.04-.19.09-.14.24-.24.49-.33.77-.03.13-.07.26-.12.4-.02 0-.04.07-.06.1a.43.43 0 0 1-.81-.29c.01-.03.03-.05.04-.08.04-.03.04-.08.04-.11.09-.12.16-.23.24-.35.16-.21.29-.45.39-.69a.54.54 0 0 0-.03-.25l.07-.18a5.6 5.6 0 0 1-2.47-3.09l-.2.03a.4.4 0 0 0-.23-.09c-.27.05-.51.13-.77.22-.11.06-.24.11-.37.15-.03.01-.07.02-.13.03a.44.44 0 0 1-.54-.27c-.07-.23.04-.47.28-.55.02 0 .05-.01.08-.01v-.01h.01l.11-.02c.14-.04.28-.04.41-.04.26 0 .52-.06.77-.12.08-.05.14-.11.19-.19l.19-.05c-.21-1.36.1-2.73.86-3.87l-.14-.12c0-.09-.03-.18-.08-.25-.2-.17-.41-.32-.64-.45q-.18-.09-.36-.21c-.02-.02-.06-.05-.08-.07l-.01-.01c-.2-.16-.25-.42-.11-.63.09-.1.21-.15.35-.15q.165.015.3.12l.09.07c.1.09.19.2.28.3.18.19.37.37.58.52.08.04.17.05.26.03l.15.11c.75-.8 1.73-1.36 2.8-1.6.25-.06.52-.1.78-.12l.01-.18a.45.45 0 0 0 .14-.23c.01-.26-.01-.52-.05-.77-.03-.13-.05-.27-.06-.41V5.1c-.02-.24.15-.45.39-.48s.44.15.47.38v.22c-.01.14-.03.28-.06.41-.04.25-.06.51-.05.77.02.1.07.17.14.22l.01.19c1.36.12 2.62.73 3.56 1.72l.16-.12c.09.02.18.01.26-.03.21-.15.41-.33.58-.52.09-.1.18-.2.28-.3.03-.02.07-.06.1-.06.17-.18.44-.18.59 0 .19.16.18.43 0 .6 0 .02-.03.04-.06.06a2.495 2.495 0 0 1-.44.28c-.23.13-.45.28-.64.45-.06.07-.09.15-.08.24l-.16.14a5.44 5.44 0 0 1 .88 3.86l.19.05c.04.08.11.14.19.18.25.07.51.11.77.14h.41c.03.03.08.04.12.05.24.03.4.25.37.49-.05.23-.24.4-.48.37-.03-.01-.07-.01-.07-.02v-.01c-.06 0-.1-.01-.14-.02q-.195-.06-.36-.15c-.26-.1-.5-.17-.77-.21-.09 0-.17 0-.23.08-.07-.01-.13-.02-.19-.03-.41 1.31-1.31 2.41-2.47 3.11"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 6a6 6 0 0 1 6 6c0 2.22-1.21 4.16-3 5.2V19a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1.8c-1.79-1.04-3-2.98-3-5.2a6 6 0 0 1 6-6m2 15v1a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-1zm6-10h3v2h-3zM1 11h3v2H1zM13 1v3h-2V1zM4.92 3.5l2.13 2.14-1.42 1.41L3.5 4.93zm12.03 2.13 2.12-2.13 1.43 1.43-2.13 2.12z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial 1
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 6a6 6 0 0 1 6 6c0 2.22-1.21 4.16-3 5.2V19a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1.8c-1.79-1.04-3-2.98-3-5.2a6 6 0 0 1 6-6m2 15v1a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-1zm6-10h3v2h-3zM1 11h3v2H1zM13 1v3h-2V1zM4.92 3.5l2.13 2.14-1.42 1.41L3.5 4.93zm12.03 2.13 2.12-2.13 1.43 1.43-2.13 2.12z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learn-kubernetes-full-handbook-for-developers-startups-and-businesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learn Kubernetes – Full Handbook for Developers, Startups, and Businesses
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Kubernetes?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-applications-were-deployed-before-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Applications Were Deployed Before Kubernetes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How Applications Were Deployed Before Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#then-came-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Then Came Containers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-kubernetes-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem Kubernetes Solves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Problem Kubernetes Solves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-growing-headache-of-managing-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Growing Headache of Managing Containers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-managed-services-helped-but-only-up-to-a-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud-Managed Services Helped... But Only Up To a Point
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes-smarter-leaner-and-more-flexible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes: Smarter, Leaner, and More Flexible
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kubernetes: Smarter, Leaner, and More Flexible">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-lets-you-customize-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes Lets You Customize Everything
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-kubernetes-works-components-of-a-kubernetes-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Kubernetes Works — Components of a Kubernetes Environment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How Kubernetes Works — Components of a Kubernetes Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#master-node-control-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Master Node (Control Plane)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scheduler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controller-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controller Manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        etcd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worker-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worker Nodes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubelet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubelet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kube-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kube Proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes-workloads-pods-deployments-services-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes Workloads — Pods, Deployments, Services, &amp; More
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kubernetes Workloads — Pods, Deployments, Services, &amp; More">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replicasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ReplicaSets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#daemonsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DaemonSets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statefulsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StatefulSets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cronjobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CronJobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-create-a-kubernetes-cluster-in-a-demo-environment-with-play-with-k8s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Create a Kubernetes Cluster in a Demo Environment with play-with-k8s
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Create a Kubernetes Cluster in a Demo Environment with play-with-k8s">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sign-in-to-play-with-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sign in to Play with Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-your-kubernetes-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create Your Kubernetes Cluster
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create Your Kubernetes Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-start-a-new-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Start a New Session:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-add-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Add Instances:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-initialize-the-master-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Initialize the Master Node:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-add-worker-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Add Worker Nodes:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-configure-the-clusters-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Configure the Cluster’s networking:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-verify-the-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Verify the Cluster:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-deploy-an-application-on-your-kubernetes-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Deploy an Application on Your Kubernetes Cluster
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Deploy an Application on Your Kubernetes Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-imperative-vs-declarative-approaches-in-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding Imperative vs. Declarative Approaches in Kubernetes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Imperative vs. Declarative Approaches in Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#imperative-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Imperative Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declarative-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Declarative Approach
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Declarative Approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-the-declarative-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is the Declarative Approach?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-a-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What’s a Manifest?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What’s a Manifest?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-clone-the-github-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Clone the GitHub Repo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-understanding-the-deployment-manifest-deploymentyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Understanding the Deployment Manifest (deployment.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-understanding-the-service-manifest-serviceyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Understanding the Service Manifest (service.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-clean-up-previous-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Clean Up Previous Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-apply-the-manifests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Apply the Manifests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-check-that-its-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Check That It’s Running
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-access-the-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Access the App
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-declarative-is-better-in-most-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Declarative Is Better (In Most Cases)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advantages-of-using-kubernetes-in-business" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advantages of Using Kubernetes in Business
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advantages of Using Kubernetes in Business">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#better-use-of-cloud-resources-cost-savings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Better Use of Cloud Resources = Cost Savings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-availability-and-uptime-happy-customers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High Availability and Uptime = Happy Customers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#easy-scaling-during-high-demand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Easy Scaling During High Demand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faster-deployment-faster-time-to-market" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Faster Deployment = Faster Time to Market
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consistent-environments-fewer-bugs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consistent Environments = Fewer Bugs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vendor-independence-bye-bye-to-vendor-lock-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vendor Independence (Bye-bye to Vendor lock-in)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organizational-clarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organizational Clarity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disadvantages-of-using-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disadvantages of Using Kubernetes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Disadvantages of Using Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-youll-likely-need-a-devops-engineer-or-team" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. You’ll Likely Need a DevOps Engineer or Team
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-kubernetes-can-be-expensive-if-used-prematurely" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kubernetes Can Be Expensive (If Used Prematurely)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases-when-and-when-not-to-use-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Cases: When (and When Not) to Use Kubernetes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use Cases: When (and When Not) to Use Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-you-should-use-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When You Should Use Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-you-should-not-use-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When You Should Not Use Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-move-to-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Move to Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tldr-for-founders-and-devops-teams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TL;DR for Founders and DevOps Teams
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#study-further" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Study Further
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learn-kubernetes-full-handbook-for-developers-startups-and-businesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learn Kubernetes – Full Handbook for Developers, Startups, and Businesses
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Kubernetes?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-applications-were-deployed-before-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Applications Were Deployed Before Kubernetes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How Applications Were Deployed Before Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#then-came-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Then Came Containers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-kubernetes-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem Kubernetes Solves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Problem Kubernetes Solves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-growing-headache-of-managing-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Growing Headache of Managing Containers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-managed-services-helped-but-only-up-to-a-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud-Managed Services Helped... But Only Up To a Point
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes-smarter-leaner-and-more-flexible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes: Smarter, Leaner, and More Flexible
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kubernetes: Smarter, Leaner, and More Flexible">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-lets-you-customize-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes Lets You Customize Everything
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-kubernetes-works-components-of-a-kubernetes-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Kubernetes Works — Components of a Kubernetes Environment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How Kubernetes Works — Components of a Kubernetes Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#master-node-control-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Master Node (Control Plane)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scheduler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controller-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controller Manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        etcd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worker-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worker Nodes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubelet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubelet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kube-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kube Proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes-workloads-pods-deployments-services-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes Workloads — Pods, Deployments, Services, &amp; More
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kubernetes Workloads — Pods, Deployments, Services, &amp; More">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replicasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ReplicaSets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#daemonsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DaemonSets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statefulsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StatefulSets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cronjobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CronJobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-create-a-kubernetes-cluster-in-a-demo-environment-with-play-with-k8s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Create a Kubernetes Cluster in a Demo Environment with play-with-k8s
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Create a Kubernetes Cluster in a Demo Environment with play-with-k8s">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sign-in-to-play-with-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sign in to Play with Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-your-kubernetes-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create Your Kubernetes Cluster
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create Your Kubernetes Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-start-a-new-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Start a New Session:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-add-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Add Instances:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-initialize-the-master-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Initialize the Master Node:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-add-worker-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Add Worker Nodes:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-configure-the-clusters-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Configure the Cluster’s networking:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-verify-the-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Verify the Cluster:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-deploy-an-application-on-your-kubernetes-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Deploy an Application on Your Kubernetes Cluster
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Deploy an Application on Your Kubernetes Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-imperative-vs-declarative-approaches-in-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding Imperative vs. Declarative Approaches in Kubernetes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Imperative vs. Declarative Approaches in Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#imperative-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Imperative Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declarative-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Declarative Approach
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Declarative Approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-the-declarative-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is the Declarative Approach?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-a-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What’s a Manifest?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What’s a Manifest?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-clone-the-github-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Clone the GitHub Repo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-understanding-the-deployment-manifest-deploymentyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Understanding the Deployment Manifest (deployment.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-understanding-the-service-manifest-serviceyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Understanding the Service Manifest (service.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-clean-up-previous-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Clean Up Previous Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-apply-the-manifests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Apply the Manifests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-check-that-its-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Check That It’s Running
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-access-the-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Access the App
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-declarative-is-better-in-most-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Declarative Is Better (In Most Cases)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advantages-of-using-kubernetes-in-business" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advantages of Using Kubernetes in Business
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advantages of Using Kubernetes in Business">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#better-use-of-cloud-resources-cost-savings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Better Use of Cloud Resources = Cost Savings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-availability-and-uptime-happy-customers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High Availability and Uptime = Happy Customers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#easy-scaling-during-high-demand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Easy Scaling During High Demand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faster-deployment-faster-time-to-market" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Faster Deployment = Faster Time to Market
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consistent-environments-fewer-bugs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consistent Environments = Fewer Bugs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vendor-independence-bye-bye-to-vendor-lock-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vendor Independence (Bye-bye to Vendor lock-in)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organizational-clarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organizational Clarity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disadvantages-of-using-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disadvantages of Using Kubernetes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Disadvantages of Using Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-youll-likely-need-a-devops-engineer-or-team" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. You’ll Likely Need a DevOps Engineer or Team
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-kubernetes-can-be-expensive-if-used-prematurely" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kubernetes Can Be Expensive (If Used Prematurely)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases-when-and-when-not-to-use-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Cases: When (and When Not) to Use Kubernetes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use Cases: When (and When Not) to Use Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-you-should-use-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When You Should Use Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-you-should-not-use-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When You Should Not Use Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-move-to-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Move to Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tldr-for-founders-and-devops-teams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TL;DR for Founders and DevOps Teams
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#study-further" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Study Further
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="kubernetes-tutorial">Kubernetes Tutorial</h1>
+<p><strong>Freecodecamp Tutorial Reference:</strong> <a href="https://www.freecodecamp.org/news/learn-kubernetes-handbook-devs-startups-businesses/">Freecodecamp Tutorial</a></p>
+<h2 id="learn-kubernetes-full-handbook-for-developers-startups-and-businesses">Learn Kubernetes – Full Handbook for Developers, Startups, and Businesses</h2>
+<p>You’ve probably heard the word Kubernetes floating around, or it’s cooler nickname k8s (pronounced “kates“). Maybe in a job post, a tech podcast, or from that one DevOps friend who always brings it up like it’s the secret sauce to everything. It sounds important, but also... kinda mysterious.</p>
+<p>So what is Kubernetes, really? Why is it everywhere? And should you care?</p>
+<p>In this handbook, we’ll unpack Kubernetes in a way that actually makes sense. No buzzwords. No overwhelming tech-speak. Just straight talk. You’ll learn what Kubernetes is, how it came about, and why it became such a big deal – especially for teams building and running huge apps with millions of users.</p>
+<p>We’ll rewind a bit to see how things were done before Kubernetes showed up (spoiler: it wasn’t pretty), and walk through the real problems it was designed to solve.</p>
+<p>By the end, you’ll not only understand the purpose of Kubernetes, but you’ll also know how to deploy a simple app on a Kubernetes cluster – even if you’re just getting started.</p>
+<p>Yep, by the time we’re done, you’ll go from “I keep hearing about Kubernetes” to “Hey, I kinda get it now!”</p>
+<h2 id="what-is-kubernetes">What is Kubernetes?</h2>
+<p>Imagine you're building a huge software platform, like a banking app. This app needs many features, like user onboarding, depositing money, withdrawals, payments, and so on. These features are so big and complex that it’s easier to split them into separate applications. These individual applications are called microservices.</p>
+<p>So what are Microservices? Think of them like little building blocks that work together to create a bigger platform. So, you might have:</p>
+<p>One microservice for user onboarding</p>
+<p>Another for processing deposits</p>
+<p>Another for handling payments</p>
+<p>And many, many more!</p>
+<p>To the user, it still looks like they’re using one smooth, unified banking app. But behind the scenes, it’s like a bunch of little apps working together to make everything run.</p>
+<p>But here’s where things get tricky...
+When you have dozens (or even hundreds) of these microservices, managing them becomes a nightmare. You might need to:</p>
+<p>Deploy each one separately</p>
+<p>Monitor them individually (to ensure they don’t crash/become slow due to too much load)</p>
+<p>Scale them (make them bigger to handle more users) as traffic surges, one by one</p>
+<p>So, if your banking app suddenly gets millions of users, you'd have to manually tweak and update each microservice to keep it running smoothly. It’s a lot of work, and if something goes wrong, you’re in deep trouble.</p>
+<p>This is where Kubernetes comes to the rescue!
+Kubernetes is like a super-efficient manager for all these microservices. It’s a platform that helps you:</p>
+<p>Automate the deployment (getting the apps up and running)</p>
+<p>Scale the microservices (making them bigger or smaller as needed based on the inflow of traffic – your customers)</p>
+<p>Monitor them (keeping an eye on their health)</p>
+<p>Ensure reliability (so if one microservice breaks/fails, k8s replaces it immediately)</p>
+<p>In simple terms, Kubernetes takes all your little microservices and organizes them, ensuring they run smoothly together, no matter how much traffic your app gets. It handles everything behind the scenes, like a conductor leading an orchestra, so your microservices work together without chaos.</p>
+<h2 id="how-applications-were-deployed-before-kubernetes">How Applications Were Deployed Before Kubernetes</h2>
+<p>Before Kubernetes came into the picture, software teams had quite the juggling act when it came to deploying applications – especially when they were made up of lots of microservices.</p>
+<p>One popular method was using a distributed system setup. Here’s what that looked like:</p>
+<p>Imagine each microservice (like your user onboarding, payments, deposits, and so on) being installed on separate servers (physical computers or virtual machines). Each of these servers had to be carefully prepared:</p>
+<p>The microservice itself needed to be installed.</p>
+<p>The software dependencies it needed (like programming languages, libraries, tools) also had to be installed.</p>
+<p>Everything had to be configured manually ON EACH server.</p>
+<p>And all of these servers had to talk to each other – sometimes over the public internet, or via private networks like VPNs.</p>
+<p>Sounds like a lot of work, right? It was! Managing updates, fixing bugs, scaling up during traffic spikes, and keeping things from crashing could turn into a full-time headache for developers and system admins.</p>
+<h3 id="then-came-containers">Then Came Containers</h3>
+<p>A more modern solution that eased the pain (a little) was using containers.</p>
+<p>So, what are containers?</p>
+<p>Think of a container like a lunchbox for your microservice. Instead of installing the microservice and its supporting tools directly on a server, you pack everything it needs – code, settings, software libraries – into this single, neat container. Wherever the container goes, the microservice runs exactly the same way. No surprises!</p>
+<p>Tools like Docker made this super easy. Once your microservice was packed into a container, you could deploy it on:</p>
+<p>A single server</p>
+<p>Multiple servers</p>
+<p>Or cloud platforms like AWS Elastic Beanstalk, Azure App Service, or Google Cloud Run.</p>
+<h2 id="the-problem-kubernetes-solves">The Problem Kubernetes Solves</h2>
+<p>At first, when containers arrived on the scene, it felt like developers had struck gold.</p>
+<p>You could package a microservice into a neat little container and run it anywhere – no more installing the same software on every server again and again. Tools like Docker and Docker Compose made this smooth for small projects.</p>
+<p>But the real world? That’s where it got messy.</p>
+<h3 id="the-growing-headache-of-managing-containers">The Growing Headache of Managing Containers</h3>
+<p>When you have just a few microservices, you can manually deploy and manage their containers without much stress. But when your app grows – and you suddenly have dozens or even hundreds of microservices – managing them becomes an uphill battle:</p>
+<p>You had to deploy each container manually.</p>
+<p>You had to restart them if one crashed.</p>
+<p>You had to scale them one by one when more users started flooding in.</p>
+<p>Docker and Docker Compose were great for a small playground or startups, but not for an enterprise application with high traffic inflow.</p>
+<h3 id="cloud-managed-services-helped-but-only-up-to-a-point">Cloud-Managed Services Helped... But Only Up To a Point</h3>
+<p>Cloud services like AWS Elastic Beanstalk, Azure App Service, and Google Code Engine offered a shortcut. They let you deploy containers without worrying about setting up servers.</p>
+<p>You could:</p>
+<p>Deploy each container on its own managed cloud instance.</p>
+<p>Scale them automatically based on traffic.</p>
+<p>BUT there were still some big headaches:</p>
+<p>Grouping microservices was awkward and expensive
+Sure, you could organize containers by environment (like “testing” or “production”) or even by team (like “Finance” or “HR”). But each new microservice usually needed its own cloud instance – for example, a separate Azure App Service or Elastic Beanstalk environment FOR EVERY SINGLE CONTAINER.</p>
+<p>Imagine this:</p>
+<p>Each App Service instance costs ~$50 per month.</p>
+<p>You’ve got 10 microservices.</p>
+<p>That’s $500/month... even if they’re barely used. 💸 Yikes!</p>
+<h2 id="kubernetes-smarter-leaner-and-more-flexible">Kubernetes: Smarter, Leaner, and More Flexible</h2>
+<p>With Kubernetes, you don’t need to spin up a separate server for each microservice. You can start with just one or two servers (VMs) – and Kubernetes will automatically decide which container goes where based on available space and resources.</p>
+<p>No stress, no waste! 💡</p>
+<h3 id="kubernetes-lets-you-customize-everything">Kubernetes Lets You Customize Everything</h3>
+<p>You can assign resources to each microservice container.
+Example: If you have a "Payment" microservice that’s lightweight, you might give it 0.5 vCPUs and 512MB of memory. If you have a "Data Analytics" microservice that’s resource-hungry, you could give it 2 vCPUs and 4GB of memory.</p>
+<p>You can set a minimum number of instances for each microservice.
+Example: If you want at least 2 copies of your "Login" service always running (so your app doesn’t break if one fails), Kubernetes makes sure you always have 2 live copies at all times.</p>
+<p>You can group your containers however you like:
+By teams (Finance, HR, DevOps) or by environments (Testing, Staging, Production). Kubernetes makes this grouping super clean and logical.</p>
+<p>You can automatically scale individual containers.
+When more users flood your app, Kubernetes can create extra copies (called “replicas”) of only the containers that are under pressure. No more wasting resources on containers that don’t need it.</p>
+<p>You can even scale your servers!
+Kubernetes can automatically increase the number of servers (VMs) in your environment – called a Cluster – when traffic grows. So you could start with 2 VMs at $30 each ($60/month) and let Kubernetes add more servers only when necessary, rather than locking yourself into high fixed costs like $500/month for cloud-managed services.</p>
+<p>Also, Kubernetes works the same way everywhere. Whether you deploy your containers on AWS, Google Cloud, Azure, or even your own laptop – Kubernetes doesn’t care. Your setup stays the same.</p>
+<p>Compare that to managed services like Elastic Beanstalk or Azure App Service – which tie you to their platform, making it super hard to switch later.</p>
+<p>In short: Kubernetes saves you money, time, and a whole lot of headaches. It lets you run, scale, and organize your microservices without being chained to a single cloud provider — and without drowning in manual work.</p>
+<h2 id="how-kubernetes-works-components-of-a-kubernetes-environment">How Kubernetes Works — Components of a Kubernetes Environment</h2>
+<p>So by now you’ve seen the problem: running dozens (or hundreds!) of microservices manually is like juggling too many balls – you’re bound to drop some.</p>
+<p>That’s why Kubernetes was created. But... how does it actually do all this magic? Let’s first break it down with the technical definition (simple but sharp – perfect for interviews) and then the layperson’s analogy (so it sticks in your head!).</p>
+<h3 id="cluster">Cluster</h3>
+<p>A Kubernetes Cluster is the entire setup of machines (physical or cloud-based) where Kubernetes runs. It’s made of one or more Master Nodes and Worker Nodes, working together to deploy and manage containerized applications.</p>
+<p>Think of a Kubernetes Cluster as your entire playground. This is the environment where all your microservices live, grow, and play together.</p>
+<p>A cluster is made up of two types of computers (called nodes):</p>
+<p>Master Node (nowadays often called the Control Plane)</p>
+<p>Worker Nodes</p>
+<h3 id="master-node-control-plane">Master Node (Control Plane)</h3>
+<p>The Master Node is like the brain of Kubernetes. It manages and coordinates the whole cluster – deciding which applications run where, monitoring health, and scaling things up or down as needed.</p>
+<p>It’s like the boss of the entire cluster. It doesn’t run your applications directly. Instead, it:</p>
+<p>Watches over the worker nodes</p>
+<p>Decides which microservice (container) goes where</p>
+<p>Makes sure everything runs smoothly and fairly</p>
+<p>Think of it like a factory manager who tells machines what to do, when to start, when to stop, and where to send the next package.</p>
+<p>Inside the Master Node are a few clever mini-components that handle the real work.</p>
+<h3 id="api-server">API Server</h3>
+<p>The API Server is the front door to Kubernetes. It handles communication between users and the system, taking commands and feeding them into the cluster.</p>
+<p>This is where you (or your team) give Kubernetes instructions. Whether you're deploying a new app or scaling an existing one, you "talk" to the API Server first. It's like submitting a request at the front desk – the API server passes it on to the right people (or machines).</p>
+<h3 id="scheduler">Scheduler</h3>
+<p>The Scheduler assigns Pods (applications) to Worker Nodes based on available resources and needs.</p>
+<p>Imagine you’ve asked Kubernetes to launch a new microservice. The Scheduler checks:</p>
+<p>Which worker node has enough space?</p>
+<p>Which node has enough memory and CPU?</p>
+<p>Where would this service run best?</p>
+<p>It makes the decision and assigns the microservice to the perfect spot. Smart, huh?</p>
+<h3 id="controller-manager">Controller Manager</h3>
+<p>The Controller Manager runs controllers that watch over the cluster and ensures that the system’s actual state matches the desired state.</p>
+<p>This component watches over the system like a hawk. Let’s say you told Kubernetes:
+"Hey, I want 3 copies of my payment microservice running at all times."</p>
+<p>If one of them crashes, the Controller Manager sees that and spins up a new one to replace it automatically. It makes sure the reality always matches the plan.</p>
+<h3 id="etcd">etcd</h3>
+<p>etcd is Kubernetes' memory – a distributed key-value store where cluster data is saved: config files, state, and metadata.</p>
+<p>Imagine a notebook where all rules, records, and plans are written down. Without etcd, Kubernetes would forget everything.</p>
+<h3 id="worker-nodes">Worker Nodes</h3>
+<p>Worker Nodes are the servers that run the actual application containers, doing the heavy lifting in the cluster.</p>
+<p>These are the machines where your microservices actually live and run. The Master Node gives orders, but the Worker Nodes do the heavy lifting – they run your containers!</p>
+<p>Each worker node has a few helpers to manage its microservices:</p>
+<p>The Kubelet</p>
+<p>The Kube Proxy</p>
+<h3 id="kubelet">Kubelet</h3>
+<p>The Kubelet is the agent which lives on each Worker Node that makes sure containers are healthy and running as expected.</p>
+<p>It listens to the Master Node’s instructions. If the Master Node says:"Hey, run this container!", the Kubelet makes it happen and keeps it running. If something goes wrong, the Kubelet reports back to the Master Node</p>
+<h3 id="kube-proxy">Kube Proxy</h3>
+<p>Kube Proxy handles network traffic, ensuring that Pods can talk to each other and to the outside world.</p>
+<p>Imagine your banking app’s login service needs to talk to the payments service. The Kube Proxy handles the routing so the request reaches the right place. It also handles load balancing, so no single microservice gets overwhelmed.</p>
+<p>So, to summarize:</p>
+<p>The Master Node is the boss – it plans, watches, and assigns tasks.</p>
+<p>The Worker Nodes do the actual work – running your microservices.</p>
+<p>Components like etcd, Kubelet, Scheduler, Controller Manager, and Kube Proxy all work together like parts of a well-oiled machine.</p>
+<p>Kubernetes is designed to handle your microservices automatically – keeping them alive, scaling them up, moving them around, and restarting them if they crash – so you don’t have to babysit them yourself.</p>
+<h2 id="kubernetes-workloads-pods-deployments-services-more">Kubernetes Workloads — Pods, Deployments, Services, &amp; More</h2>
+<p>Kubernetes workloads are the objects you use to manage and run your applications. Think of them as blueprints 📐 that tell Kubernetes what to run and how to run it – whether it’s a single app container, a group of containers, a database, or a batch job. Here are some of the workloads in Kubernetes:</p>
+<h3 id="pods">Pods</h3>
+<p>A Pod is the smallest and simplest unit in the Kubernetes object model. It represents a single instance of a running process in your cluster and can contain one or more containers that share storage and network resources. ​</p>
+<p>Think of a Pod as a wrapper around one or more containers that need to work together. They share the same network IP and storage, allowing them to communicate easily and share data. Pods are ephemeral (live for a short time, they can be replaced very easily). If a Pod dies, Kubernetes can create a new one to replace it almost instantly.​</p>
+<p>Say you have an application which is split into 2 distributed monoliths – a frontend and a backend. The frontend will run in a container in Pod A, while the backend app will run in a container in another Pod B.</p>
+<h3 id="deployments">Deployments</h3>
+<p>A Deployment provides declarative updates for Pods and ReplicaSets. You describe a desired state in a Deployment, and the Deployment Controller changes the actual state to the desired state at a controlled rate.</p>
+<p>Deployments manage the lifecycle of your application Pods. They ensure that the specified number of Pods are running and can handle updates, rollbacks, and scaling. If a Pod fails, the Deployment automatically replaces it to maintain the desired state.​</p>
+<p>Imagine you're managing a store. A Deployment is like the store manager – you tell it how many workers (Pods) you want, and it makes sure they’re always present. If one doesn't show up for work, the manager finds a replacement automatically. You can also tell it to hire more workers or fire some when needed.</p>
+<h3 id="services">Services</h3>
+<p>A Service in Kubernetes defines a way to access/communicate with Pods. Services enable communication between different Pods (for example, your frontend Pod A can communicate with your backend Pod B via a service) and can expose your application to external traffic (for example the public internet). ​</p>
+<p>Services act as a stable endpoint to access a set of Pods. Even if the underlying Pods change, the Service's IP and DNS name remain constant, ensuring communication between the Pods within the cluster or with the internet.</p>
+<p>A Service is like the front door to your app. No matter which worker (Pod) is behind it, people always use the same entrance to access it. It hides the messy stuff happening behind the scenes and gives users a simple way to connect to your app.</p>
+<h3 id="replicasets">ReplicaSets</h3>
+<p>A ReplicaSet ensures that a specified number of identical Pods are running at any given time. It is often used to guarantee the availability of a specified number of Pods (horizontal scaling). ​</p>
+<p>ReplicaSets maintain a stable set of running Pods. If a Pod crashes or is deleted, the ReplicaSet automatically creates a new one to replace it, ensuring your application remains available.​</p>
+<p>Think of a ReplicaSet like a robot that counts how many copies of your app are running. If one goes missing, it automatically makes a new one. It keeps the number steady, just like you told it to.</p>
+<h3 id="daemonsets">DaemonSets</h3>
+<p>A DaemonSet ensures that all (or some) Nodes run an instance (a copy) of a specific Pod. As nodes are added to the cluster, Pods are added to them. As nodes are removed from the cluster, those Pods are also removed. ​</p>
+<p>DaemonSets are used to deploy a Pod on every node in the cluster. This is useful for running background tasks like log collection or monitoring agents on all nodes (for example to get the CPU, memory, and disk usage of each node).​</p>
+<p>A DaemonSet is like saying, “I want this helper app to run on every single computer we have.” As mentioned earlier, it’s great for things like log collectors or security checkers – small helpers that every machine should have.</p>
+<h3 id="statefulsets">StatefulSets</h3>
+<p>A StatefulSet is the workload API object used to manage stateful applications (applications that store data, for example in their filesystem – databases). It manages the deployment and scaling of a set of Pods and provides guarantees about the ordering and uniqueness of these Pods.</p>
+<p>StatefulSets are designed for applications that require persistent storage and stable network identities, like databases.</p>
+<p>Let’s say you’re running a database or anything that needs to save info. A StatefulSet is like giving each app a name tag and a personal drawer to store their stuff. Even if you restart them, they come back with the same name and same drawer.</p>
+<h3 id="jobs">Jobs</h3>
+<p>A Job creates one or more Pods and ensures that a specified number of them successfully terminate. As Pods successfully complete, the Job tracks the successful completions. When a specified number of successful completions is reached, the Job is complete. ​</p>
+<p>A Job is like a one-time task. Imagine sending out a batch of emails or processing a report. You want the task to run, finish, and then stop. That’s exactly what a Job does.</p>
+<h3 id="cronjobs">CronJobs</h3>
+<p>A CronJob creates Jobs on a time-based schedule. It runs a Job periodically on a given schedule, written in Cron format.</p>
+<p>A CronJob is like setting a reminder or alarm. It tells your app (in this case the Job) to do something every night at 2 AM, every Monday morning, or once a month – whatever schedule you give it.</p>
+<h2 id="how-to-create-a-kubernetes-cluster-in-a-demo-environment-with-play-with-k8s">How to Create a Kubernetes Cluster in a Demo Environment with play-with-k8s</h2>
+<p>As we've discussed earlier, a Kubernetes cluster is a set of machines (called nodes) that run containerized applications.</p>
+<p>Setting up a Kubernetes cluster locally or in the cloud can be complex and expensive. To simplify the learning process, Docker provides a free, browser-based platform called Play with Kubernetes. This environment allows you to create and interact with a Kubernetes cluster without installing anything on your local machine. It's an excellent tool for beginners to get hands-on experience with Kubernetes.​</p>
+<h3 id="sign-in-to-play-with-kubernetes">Sign in to Play with Kubernetes</h3>
+<p>Visit the platform at https://labs.play-with-k8s.com/.​</p>
+<p>Authenticate:</p>
+<p>Click on the "Login" button.</p>
+<p>You can sign in using your Docker Hub or GitHub account.</p>
+<p>If you don't have an account, you can create one for free on Docker Hub or GitHub.​</p>
+<p>Sign in to Play with k8s</p>
+<h3 id="create-your-kubernetes-cluster">Create Your Kubernetes Cluster</h3>
+<p>Once signed in, follow these steps to set up your cluster:</p>
+<h4 id="step-1-start-a-new-session">Step 1: Start a New Session:</h4>
+<p>Click on the "Start" button to initiate a new session.​ This will create a new session giving you about 4 hours of play time, after which the cluster and it’s resources will be automatically terminated.</p>
+<p>Play with k8s timed session</p>
+<h4 id="step-2-add-instances">Step 2: Add Instances:</h4>
+<p>Then click on "+ Add New Instance" to create a new node (Virtual Machine).</p>
+<p>Create new master node (VM)</p>
+<p>This will open a terminal window where you can run commands.​</p>
+<p>Terminal of newly created node</p>
+<h4 id="step-3-initialize-the-master-node">Step 3: Initialize the Master Node:</h4>
+<p>In the terminal, run the following command to initialize the master node:​</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>kubeadm<span class="w"> </span>init<span class="w"> </span>--apiserver-advertise-address<span class="w"> </span><span class="k">$(</span>hostname<span class="w"> </span>-i<span class="k">)</span><span class="w"> </span>--pod-network-cidr<span class="w"> </span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>&lt;SPECIFIED_IP_ADDRESS&gt;
+</code></pre></div>
+<p>OUTPUT SAMPLE
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[node1 ~]$ kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr 192.168.0.23/16
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Initializing machine ID from random generator.
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>W1103 21:30:22.332745     918 initconfiguration.go:120] Usage of CRI endpoints without URL scheme is deprecated and can cause kubelet errors in the future. Automatically prepending scheme &quot;unix&quot; to the &quot;criSocket&quot; with value &quot;/run/docker/containerd/containerd.sock&quot;. Please update your configuration!
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>I1103 21:30:27.977689     918 version.go:256] remote version is much newer: v1.34.1; falling back to: stable-1.27
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>[init] Using Kubernetes version: v1.27.16
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>[preflight] Running pre-flight checks
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>[preflight] The system verification failed. Printing the output from the verification:
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>KERNEL_VERSION: 4.4.0-210-generic
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>OS: Linux
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>CGROUPS_CPU: enabled
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>CGROUPS_CPUACCT: enabled
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>CGROUPS_CPUSET: enabled
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>CGROUPS_DEVICES: enabled
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>CGROUPS_FREEZER: enabled
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>CGROUPS_MEMORY: enabled
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>CGROUPS_PIDS: enabled
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>CGROUPS_HUGETLB: enabled
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>CGROUPS_BLKIO: enabled
+</code></pre></div></p>
+<p>You can find the command in the terminal. In my case, the IP address is 10.5.0.0/16. Replace the <SPECIFIED_IP_ADDRESS> placeholder with the IP address specified in your terminal.</p>
+<p>Initialize the master node and the control plane</p>
+<p>This process will set up the control plane of your Kubernetes cluster.​</p>
+<h4 id="step-4-add-worker-nodes">Step 4: Add Worker Nodes:</h4>
+<p>If you want to add worker nodes, in the master node terminal, you'll find a kubeadm join... command after running the kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr <SPECIFIED_IP_ADDRESS> command.</p>
+<p>Command to add worker node to control plane</p>
+<p>Click on "+ Add New Instance" to create another node just as you did earlier.</p>
+<p>Run this command in the new node's terminal to join it to the cluster.  Ensure it's in 1 line.</p>
+<p>SAMPLE COMMAND
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubeadm<span class="w"> </span>join<span class="w"> </span><span class="m">192</span>.168.0.23:6443<span class="w"> </span>--token<span class="w"> </span>33d2ot.30qdyhgtodumz54z<span class="w"> </span>--discovery-token-ca-cert-hash<span class="w"> </span>sha256:9377781315e1b155a55c0d745bdc93249b6f8f431bd5194a259825ab136da918<span class="w"> </span>
+</code></pre></div></p>
+<p>Add worker node to control plane</p>
+<p>SAMPLE OUTPUT (PARTIAL)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Initializing<span class="w"> </span>machine<span class="w"> </span>ID<span class="w"> </span>from<span class="w"> </span>random<span class="w"> </span>generator.
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>W1103<span class="w"> </span><span class="m">21</span>:56:01.139680<span class="w">     </span><span class="m">580</span><span class="w"> </span>initconfiguration.go:120<span class="o">]</span><span class="w"> </span>Usage<span class="w"> </span>of<span class="w"> </span>CRI<span class="w"> </span>endpoints<span class="w"> </span>without<span class="w"> </span>URL<span class="w"> </span>scheme<span class="w"> </span>is<span class="w"> </span>deprecated<span class="w"> </span>and<span class="w"> </span>can<span class="w"> </span>cause<span class="w"> </span>kubelet<span class="w"> </span>errors<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>future.<span class="w"> </span>Automatically<span class="w"> </span>prepending<span class="w"> </span>scheme<span class="w"> </span><span class="s2">&quot;unix&quot;</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="s2">&quot;criSocket&quot;</span><span class="w"> </span>with<span class="w"> </span>value<span class="w"> </span><span class="s2">&quot;/run/docker/containerd/containerd.sock&quot;</span>.<span class="w"> </span>Please<span class="w"> </span>update<span class="w"> </span>your<span class="w"> </span>configuration!
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="o">[</span>preflight<span class="o">]</span><span class="w"> </span>Running<span class="w"> </span>pre-flight<span class="w"> </span>checks
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="o">[</span>preflight<span class="o">]</span><span class="w"> </span>The<span class="w"> </span>system<span class="w"> </span>verification<span class="w"> </span>failed.<span class="w"> </span>Printing<span class="w"> </span>the<span class="w"> </span>output<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>verification:
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>KERNEL_VERSION:<span class="w"> </span><span class="m">4</span>.4.0-210-generic
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>OS:<span class="w"> </span>Linux
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>CGROUPS_CPU:<span class="w"> </span>enabled
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>CGROUPS_CPUACCT:<span class="w"> </span>enabled
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>CGROUPS_CPUSET:<span class="w"> </span>enabled
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>CGROUPS_DEVICES:<span class="w"> </span>enabled
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>CGROUPS_FREEZER:<span class="w"> </span>enabled
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>CGROUPS_MEMORY:<span class="w"> </span>enabled
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>CGROUPS_PIDS:<span class="w"> </span>enabled
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>CGROUPS_HUGETLB:<span class="w"> </span>enabled
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>CGROUPS_BLKIO:<span class="w"> </span>enabled
+</code></pre></div></p>
+<h4 id="step-5-configure-the-clusters-networking">Step 5: Configure the Cluster’s networking:</h4>
+<p>Navigate to the master node, and run the command below to configure the cluster’s networking.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kubeadm-kuberouter.yaml
+</code></pre></div>
+<p>SAMPLE OUTPUT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>configmap/kube-router-cfg<span class="w"> </span>created
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>daemonset.apps/kube-router<span class="w"> </span>created
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>serviceaccount/kube-router<span class="w"> </span>created
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>clusterrole.rbac.authorization.k8s.io/kube-router<span class="w"> </span>created
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>clusterrolebinding.rbac.authorization.k8s.io/kube-router<span class="w"> </span>created
+</code></pre></div></p>
+<h4 id="step-6-verify-the-cluster">Step 6: Verify the Cluster:</h4>
+<p>In the master node terminal (the first node with the highlighted user profile), run:​</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+</code></pre></div>
+<p>You should see a list of nodes in your cluster, including the master and any worker nodes you've added.​</p>
+<p>SAMPLE OUTPUT - Nodes in the cluster
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>NAME<span class="w">    </span>STATUS<span class="w">   </span>ROLES<span class="w">           </span>AGE<span class="w">     </span>VERSION
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>node1<span class="w">   </span>Ready<span class="w">    </span>control-plane<span class="w">   </span>12m<span class="w">     </span>v1.27.2
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>node2<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>4m25s<span class="w">   </span>v1.27.2
+</code></pre></div></p>
+<p>Congratulations! You just created your very own Kubernetes cluster with 2 VMs: the master node (where the control plane resides), and the worker nodes (where the Kubernetes workloads, for example Pods, will be deployed).</p>
+<h2 id="how-to-deploy-an-application-on-your-kubernetes-cluster">How to Deploy an Application on Your Kubernetes Cluster</h2>
+<p>Now that we've set up our Kubernetes cluster using Play with Kubernetes, it's time to deploy the application and make it accessible over the internet.</p>
+<h3 id="understanding-imperative-vs-declarative-approaches-in-kubernetes">Understanding Imperative vs. Declarative Approaches in Kubernetes</h3>
+<p>Before we proceed, it's essential to grasp the two primary methods for managing resources in Kubernetes: Imperative and Declarative.</p>
+<h4 id="imperative-approach">Imperative Approach</h4>
+<p>In the imperative approach, you directly issue commands to the Kubernetes API to create or modify resources. Each command specifies the desired action, and Kubernetes executes it immediately.​</p>
+<p>Imagine telling someone, "Turn on the light." You're giving a direct command, and the action happens right away. Similarly, with imperative commands, you instruct Kubernetes step-by-step on what to do.</p>
+<p><code>Example:</code>
+To create a pod running an NGINX container, run the below command in the terminal of the master node:​</p>
+<p>CREATE NGINX POD
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>kubectl<span class="w"> </span>run<span class="w"> </span>nginx-pod<span class="w"> </span>--image<span class="o">=</span>nginx
+</code></pre></div></p>
+<p>OUTPUT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>pod/nginx-pod<span class="w"> </span>created
+</code></pre></div></p>
+<p>Now wait a few seconds and run the command below to check the status of the pod:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>kubectl<span class="w"> </span>get<span class="w"> </span>pods
+</code></pre></div>
+<p>OUTPUT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>NAME<span class="w">        </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>nginx-pod<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>55s
+</code></pre></div></p>
+<p>You should get a response similar to this</p>
+<p>Get pods running in the cluster</p>
+<p>Now let’s expose our Pod to the internet by creating a Service. Run the command below to expose the Pod:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>kubectl<span class="w"> </span>expose<span class="w"> </span>pod<span class="w"> </span>nginx-pod<span class="w"> </span>--type<span class="o">=</span>NodePort<span class="w"> </span>--port<span class="o">=</span><span class="m">80</span>
+</code></pre></div>
+<p>OUTPUT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>service/nginx-pod<span class="w"> </span>exposed
+</code></pre></div></p>
+<p>To get the IP address of the Cluster so we can access our Pod, run the command below:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>kubectl<span class="w"> </span>get<span class="w"> </span>svc
+</code></pre></div>
+<p>The command displays the IP address from which we can access our service. You should get an output similar to this:</p>
+<p>Get service IP address</p>
+<p>Now, copy the IP address for the nginx-pod service and run the command below to make a request to your Pod:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>curl<span class="w"> </span>&lt;YOUR-SERVICE-IP-ADDRESS&gt;
+</code></pre></div>
+Replace the <YOUR-SERVICE-IP-ADDRESS> placeholder with the IP address of your nginx-pod service. In my case, it’s 10.98.108.173.</p>
+<p>You should get a response from your nginx-pod Pod:</p>
+<p>OUTPUT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>&lt;!DOCTYPE html&gt;
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>&lt;html&gt;
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>&lt;head&gt;
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>&lt;style&gt;
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>html { color-scheme: light dark; }
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>body { width: 35em; margin: 0 auto;
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>font-family: Tahoma, Verdana, Arial, sans-serif; }
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>&lt;/style&gt;
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>&lt;/head&gt;
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>&lt;body&gt;
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>working. Further configuration is required.&lt;/p&gt;
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>&lt;p&gt;For online documentation and support please refer to
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>&lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>Commercial support is available at
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>&lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a>&lt;/body&gt;
+<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a>&lt;/html&gt;
+</code></pre></div></p>
+<p>Make a request to the Nginx Pod running in the Cluster</p>
+<p>We couldn’t access the Pod from the internet, that is our browser, because our Cluster isn’t connected to a cloud service like AWS or Google Cloud which can provide us with an external load balancer.</p>
+<p>Now let’s try doing the same thing but using the Declarative method.</p>
+<h4 id="declarative-approach">Declarative Approach</h4>
+<p>So far, we used the imperative approach, where we typed commands like kubectl run or kubectl expose directly into the terminal to make Kubernetes do something immediately.</p>
+<p>But Kubernetes has another (and often better) way to do things: the declarative approach.</p>
+<h5 id="what-is-the-declarative-approach">What Is the Declarative Approach?</h5>
+<p>Instead of giving Kubernetes instructions step-by-step like a chef in a kitchen, you give it a full recipe – a file that describes exactly what you want (for example, what app to run, how many copies of it, how to expose it, and so on).</p>
+<p>This recipe is written in a file called a manifest.</p>
+<h5 id="whats-a-manifest">What’s a Manifest?</h5>
+<p>A manifest is a file (usually written in YAML format) that describes a Kubernetes object – like a Pod, a Deployment, or a Service.</p>
+<p>It’s like writing down what you want, handing it over to Kubernetes, and saying: “Hey, please make sure this exists exactly how I described it.”</p>
+<p>We’ll use two manifests:</p>
+<p>One to deploy our application</p>
+<p>Another to expose it to the internet</p>
+<p>Let’s walk through it!</p>
+<h6 id="step-1-clone-the-github-repo">Step 1: Clone the GitHub Repo</h6>
+<p>We already have a GitHub repo that contains the two manifest files we need. Let’s clone it into our Kubernetes environment.</p>
+<p>Run this in the terminal (on your master node):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/onukwilip/simple-kubernetes-app
+</code></pre></div>
+<p>Now, let’s go into the folder:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">cd</span><span class="w"> </span>simple-kubernetes-app
+</code></pre></div>
+<p>You should see two files:</p>
+<p>deployment.yaml</p>
+<p>service.yaml</p>
+<h6 id="step-2-understanding-the-deployment-manifest-deploymentyaml">Step 2: Understanding the Deployment Manifest (deployment.yaml)</h6>
+<p>This manifest will tell Kubernetes to deploy our app and ensure it’s always running.</p>
+<p>Here’s what’s inside:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx-deployment</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a><span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+</code></pre></div>
+<p>Now, let’s break this down:</p>
+<p><code>apiVersion</code>: apps/v1: This tells Kubernetes which version of the API we’re using to define this object.</p>
+<p><code>kind</code>: Deployment: This means we’re creating a Deployment (a controller that manages Pods).</p>
+<p><code>metadata.name</code>: We’re giving our Deployment a name: nginx-deployment.</p>
+<p><code>spec.replicas</code>: 3: We’re telling Kubernetes: “Please run 3 copies (replicas) of this app.”</p>
+<p><code>selector.matchLabels</code>: Kubernetes will use this label to find which Pods this Deployment is managing.</p>
+<p><code>template.metadata.labels &amp; spec.containers</code>: This section describes the Pods that the Deployment should create – each Pod will run a container using the official nginx image.</p>
+<p>In plain terms: We're asking Kubernetes to create and maintain 3 copies of an app that runs NGINX, and automatically restart them if any fails.</p>
+<h6 id="step-3-understanding-the-service-manifest-serviceyaml">Step 3: Understanding the Service Manifest (service.yaml)</h6>
+<p>This file tells Kubernetes to expose our NGINX app to the outside world using a Service.</p>
+<p>Here’s the file – let’s break this down, too:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx-service</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodePort</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="nt">apiVersion: v1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">We’re using version 1 of the Kubernetes API.</span>
+</code></pre></div>
+<p><code>kind</code>: Service: We’re creating a Service object.</p>
+<p><code>metadata.name</code>: nginx-service: Giving it a name.</p>
+<p><code>spec.type</code>: NodePort: We’re exposing it through a port on the node (so we can access it via the node's IP address).</p>
+<p><code>selector.app</code>: nginx: This tells Kubernetes to connect this Service to Pods with the label app: nginx.</p>
+<p><code>ports.port and targetPort</code>: The Service will listen on port 80 and forward traffic to port 80 on the Pod.</p>
+<p>In plain terms: This file says, “Expose our NGINX app through the cluster’s network so we can access it from the outside world.”</p>
+<h6 id="step-4-clean-up-previous-resources">Step 4: Clean Up Previous Resources</h6>
+<p>If you’re still running the Pod and Service we created using the imperative approach, let’s delete them to avoid conflicts:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>nginx-pod
+</code></pre></div>
+<p>OUTPUT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>pod<span class="w"> </span><span class="s2">&quot;nginx-pod&quot;</span><span class="w"> </span>deleted
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>kubectl<span class="w"> </span>delete<span class="w"> </span>service<span class="w"> </span>nginx-pod
+</code></pre></div>
+<p>OUTPUT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>service &quot;nginx-pod&quot; deleted
+</code></pre></div></p>
+<h6 id="step-5-apply-the-manifests">Step 5: Apply the Manifests</h6>
+<p>Now let’s deploy the NGINX app and expose it – this time using the declarative way.</p>
+<p>From inside the simple-kubernetes-app folder, run:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>deployment.yaml
+</code></pre></div>
+<p>OUTPUT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>deployment.apps/nginx-deployment<span class="w"> </span>created
+</code></pre></div></p>
+<p>Then:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>service.yaml
+</code></pre></div>
+<p>OUTPUT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>service/nginx-service<span class="w"> </span>created
+</code></pre></div></p>
+<p>This will create the Deployment and the Service described in the files.</p>
+<h6 id="step-6-check-that-its-running">Step 6: Check That It’s Running</h6>
+<p>Let’s see if the Pods were created:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>kubectl<span class="w"> </span>get<span class="w"> </span>pods
+</code></pre></div>
+<p>OUTPUT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>NAME<span class="w">                                </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>nginx-deployment-77b4fdf86c-l2nr4<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>26s
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>nginx-deployment-77b4fdf86c-l59ht<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>26s
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>nginx-deployment-77b4fdf86c-s95xh<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>26s
+</code></pre></div></p>
+<p>You should see 3 Pods running!</p>
+<p>And let’s check the service:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>kubectl<span class="w"> </span>get<span class="w"> </span>svc
+</code></pre></div>
+<p>OUTPUT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>NAME<span class="w">            </span>TYPE<span class="w">        </span>CLUSTER-IP<span class="w">       </span>EXTERNAL-IP<span class="w">   </span>PORT<span class="o">(</span>S<span class="o">)</span><span class="w">        </span>AGE
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>kubernetes<span class="w">      </span>ClusterIP<span class="w">   </span><span class="m">10</span>.96.0.1<span class="w">        </span>&lt;none&gt;<span class="w">        </span><span class="m">443</span>/TCP<span class="w">        </span>89m
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>nginx-service<span class="w">   </span>NodePort<span class="w">    </span><span class="m">10</span>.101.255.215<span class="w">   </span>&lt;none&gt;<span class="w">        </span><span class="m">80</span>:31551/TCP<span class="w">   </span>23s
+</code></pre></div></p>
+<p>Look for the nginx-service. You’ll see something like:</p>
+<p>Access service NodePort</p>
+<p>Note the NodePort (for example, 30001) as we’ll use it to access the app.</p>
+<h6 id="step-7-access-the-app">Step 7: Access the App</h6>
+<p>You can now send a request to your app like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>curl<span class="w"> </span>http://&lt;YOUR-NODE-IP&gt;:&lt;NODE-PORT&gt;
+</code></pre></div>
+<blockquote>
+<p>Replace <code>YOUR-NODE-IP</code> with the IP of your master node (you’ll usually find this in Play With Kubernetes at the top of your terminal), and <code>NODE-PORT</code> with the NodePort shown in the kubectl get svc command.</p>
+</blockquote>
+<p>OUTPUT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="o">[</span>node1<span class="w"> </span>simple-kubernetes-app<span class="o">]</span>$<span class="w"> </span>curl<span class="w"> </span>http://192.168.0.23:31551
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>&lt;!DOCTYPE<span class="w"> </span>html&gt;
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>&lt;html&gt;
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>&lt;head&gt;
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>&lt;title&gt;Welcome<span class="w"> </span>to<span class="w"> </span>nginx!&lt;/title&gt;
+<a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>&lt;style&gt;
+<a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>html<span class="w"> </span><span class="o">{</span><span class="w"> </span>color-scheme:<span class="w"> </span>light<span class="w"> </span>dark<span class="p">;</span><span class="w"> </span><span class="o">}</span>
+<a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>body<span class="w"> </span><span class="o">{</span><span class="w"> </span>width:<span class="w"> </span>35em<span class="p">;</span><span class="w"> </span>margin:<span class="w"> </span><span class="m">0</span><span class="w"> </span>auto<span class="p">;</span>
+<a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>font-family:<span class="w"> </span>Tahoma,<span class="w"> </span>Verdana,<span class="w"> </span>Arial,<span class="w"> </span>sans-serif<span class="p">;</span><span class="w"> </span><span class="o">}</span>
+<a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a>&lt;/style&gt;
+<a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a>&lt;/head&gt;
+<a id="__codelineno-34-12" name="__codelineno-34-12" href="#__codelineno-34-12"></a>&lt;body&gt;
+<a id="__codelineno-34-13" name="__codelineno-34-13" href="#__codelineno-34-13"></a>&lt;h1&gt;Welcome<span class="w"> </span>to<span class="w"> </span>nginx!&lt;/h1&gt;
+<a id="__codelineno-34-14" name="__codelineno-34-14" href="#__codelineno-34-14"></a>&lt;p&gt;If<span class="w"> </span>you<span class="w"> </span>see<span class="w"> </span>this<span class="w"> </span>page,<span class="w"> </span>the<span class="w"> </span>nginx<span class="w"> </span>web<span class="w"> </span>server<span class="w"> </span>is<span class="w"> </span>successfully<span class="w"> </span>installed<span class="w"> </span>and
+<a id="__codelineno-34-15" name="__codelineno-34-15" href="#__codelineno-34-15"></a>working.<span class="w"> </span>Further<span class="w"> </span>configuration<span class="w"> </span>is<span class="w"> </span>required.&lt;/p&gt;
+<a id="__codelineno-34-16" name="__codelineno-34-16" href="#__codelineno-34-16"></a>
+<a id="__codelineno-34-17" name="__codelineno-34-17" href="#__codelineno-34-17"></a>&lt;p&gt;For<span class="w"> </span>online<span class="w"> </span>documentation<span class="w"> </span>and<span class="w"> </span>support<span class="w"> </span>please<span class="w"> </span>refer<span class="w"> </span>to
+<a id="__codelineno-34-18" name="__codelineno-34-18" href="#__codelineno-34-18"></a>&lt;a<span class="w"> </span><span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://nginx.org/&quot;</span>&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+<a id="__codelineno-34-19" name="__codelineno-34-19" href="#__codelineno-34-19"></a>Commercial<span class="w"> </span>support<span class="w"> </span>is<span class="w"> </span>available<span class="w"> </span>at
+<a id="__codelineno-34-20" name="__codelineno-34-20" href="#__codelineno-34-20"></a>&lt;a<span class="w"> </span><span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://nginx.com/&quot;</span>&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+<a id="__codelineno-34-21" name="__codelineno-34-21" href="#__codelineno-34-21"></a>
+<a id="__codelineno-34-22" name="__codelineno-34-22" href="#__codelineno-34-22"></a>&lt;p&gt;&lt;em&gt;Thank<span class="w"> </span>you<span class="w"> </span><span class="k">for</span><span class="w"> </span>using<span class="w"> </span>nginx.&lt;/em&gt;&lt;/p&gt;
+<a id="__codelineno-34-23" name="__codelineno-34-23" href="#__codelineno-34-23"></a>&lt;/body&gt;
+<a id="__codelineno-34-24" name="__codelineno-34-24" href="#__codelineno-34-24"></a>&lt;/html&gt;
+</code></pre></div></p>
+<p>Now terminate the cluster environment by clicking the CLOSE SESSION button:</p>
+<h4 id="why-declarative-is-better-in-most-cases">Why Declarative Is Better (In Most Cases)</h4>
+<p>Reusable: You can use the same files again and again.</p>
+<p>Version-controlled: You can push these files to GitHub and track changes over time.</p>
+<p>Fixes mistakes easily: Want to change 3 replicas to 5? Just update the file and re-apply!</p>
+<p>Easier to maintain: Especially when you have many resources to manage.</p>
+<h2 id="advantages-of-using-kubernetes-in-business">Advantages of Using Kubernetes in Business</h2>
+<p>Kubernetes isn’t just a developer tool—it’s a business enabler as well. It helps companies deliver products faster, more reliably, and with reduced operational overhead.</p>
+<p>Let’s break down how Kubernetes translates to real-world business benefits:</p>
+<h3 id="better-use-of-cloud-resources-cost-savings">Better Use of Cloud Resources = Cost Savings</h3>
+<p>Before Kubernetes, deploying many microservices for a single application often meant creating separate cloud resources (like one Azure App Service per microservice), which could rack up huge costs quickly. Imagine $50/month per service × 10 services = $500/month.</p>
+<p>With Kubernetes:
+You can run multiple microservices on fewer virtual machines (VMs) while Kubernetes automatically decides the most efficient way to use the available servers. That means you pay for fewer servers and get more out of them 💸.</p>
+<h3 id="high-availability-and-uptime-happy-customers">High Availability and Uptime = Happy Customers</h3>
+<p>Kubernetes watches your apps like a hawk 👀. If one of them crashes or fails, Kubernetes restarts or replaces it immediately – automatically.</p>
+<p>For your business:
+This means less downtime, fewer support tickets, and happier customers who don’t even notice when things go wrong in the background.</p>
+<h3 id="easy-scaling-during-high-demand">Easy Scaling During High Demand</h3>
+<p>Manually scaling apps during high traffic (like Black Friday) can be a nightmare 😰. And if you don't act fast, customers experience slowness or crashes.</p>
+<p>With Kubernetes:
+You can configure each microservice to automatically scale — meaning it adds more instances of that service only when needed (too many users on your site trying to purchase different products) and scales back down when traffic drops. This ensures your app is always responsive and you only pay for what you use.</p>
+<h3 id="faster-deployment-faster-time-to-market">Faster Deployment = Faster Time to Market</h3>
+<p>Kubernetes supports automation and repeatability. Teams can deploy new features or microservices faster without worrying about infrastructure setup every time.</p>
+<p>For business:
+This means faster product updates, quicker response to market demands, and competitive advantage.</p>
+<h3 id="consistent-environments-fewer-bugs">Consistent Environments = Fewer Bugs</h3>
+<p>Each microservice in Kubernetes is containerized, meaning it runs with all its dependencies in a self-contained package. You can run the exact same app setup in:</p>
+<p>Development</p>
+<p>Testing</p>
+<p>Production</p>
+<p>This reduces bugs caused by "it works on my machine" issues and helps teams build with confidence.</p>
+<h3 id="vendor-independence-bye-bye-to-vendor-lock-in">Vendor Independence (Bye-bye to Vendor lock-in)</h3>
+<p>When you use cloud-managed services (like AWS Elastic Beanstalk or Azure App Service), it’s often hard to move to another provider because everything is tailored to that specific platform.</p>
+<p>With Kubernetes:
+It works the same way on AWS, Azure, GCP, or even your own data center. This means you can switch cloud providers easily and avoid being locked into one vendor – aka cloud freedom!</p>
+<h3 id="organizational-clarity">Organizational Clarity</h3>
+<p>Kubernetes lets you organize your apps clearly. You can group workloads by:</p>
+<p>Team (for example, Finance, HR)</p>
+<p>Environment (for example, testing, staging, production)</p>
+<p>This structure helps large teams collaborate better, stay organized, and manage resources efficiently.</p>
+<h2 id="disadvantages-of-using-kubernetes">Disadvantages of Using Kubernetes</h2>
+<p>Like everything in tech, Kubernetes isn’t all rainbows and rockets. Just like any other tool, it has its pros and its cons. And it's super important for startup founders, product managers, or even CEOs to know when Kubernetes is the right fit – and when it’s just overkill.</p>
+<p>Let’s break down the main disadvantages in a simple, honest way:</p>
+<h3 id="1-youll-likely-need-a-devops-engineer-or-team">1. You’ll Likely Need a DevOps Engineer or Team</h3>
+<p>Kubernetes is powerful, yes. But that power comes with great responsibility.</p>
+<p>In simple terms:</p>
+<p>You don't just "click a button" and your app is magically running.</p>
+<p>Kubernetes needs someone who understands how to set it up, keep it running, and fix issues when they pop up. This person (or team) is usually called a DevOps Engineer, SIte Relability Engineer or Cloud Engineer.</p>
+<p>Here’s what they’ll typically handle:</p>
+<p>Creating the cluster (the environment where your apps will run)</p>
+<p>Defining how your app containers should behave (how many should run, how much memory they need, when they should restart, and so on)</p>
+<p>Monitoring the apps and making sure they’re healthy</p>
+<p>Ensuring security rules are followed</p>
+<p>Handling automated scaling, deployment rollouts, backups, and so on.</p>
+<p>💡 In short: You’ll need someone skilled to manage this tool. If you’re a solo founder or a small team with no DevOps experience, Kubernetes might be too much upfront.</p>
+<h3 id="2-kubernetes-can-be-expensive-if-used-prematurely">2. Kubernetes Can Be Expensive (If Used Prematurely)</h3>
+<p>Kubernetes saves money at scale – but can cost more if you adopt it too early or for the wrong use case.</p>
+<p>Here's why:</p>
+<p>Kubernetes is meant for managing multiple applications or microservices. If your business only has one small app, you’re using a rocket to deliver a pizza – it’s just not necessary.</p>
+<p>Kubernetes is also best when you have high or unpredictable traffic. It can automatically scale up your services when traffic spikes...but if your traffic is steady and small, you won’t benefit much from that power.</p>
+<p>Let’s say:</p>
+<p>You have one app with moderate traffic.</p>
+<p>You deploy it on Kubernetes (which requires at least 1–2 VMs + setup).</p>
+<p>You hire a DevOps engineer to manage it.</p>
+<p>You pay for cloud compute + storage + monitoring.</p>
+<p>You could end up spending $300–$800/month or more... for something that could’ve been hosted on a simple service like Render, Heroku, or a basic VM for a fraction of the cost.</p>
+<p>So when should you consider Kubernetes?</p>
+<p>When your platform is made up of multiple services (For example, separate services for user auth, payments, analytics, notifications, and so on)</p>
+<p>When you’re expecting traffic spikes (for example, launching in new countries, going viral, seasonal demand like black Friday)</p>
+<p>When you want flexibility in managing your infrastructure across cloud providers (AWS, GCP, Azure) or even on-premises</p>
+<h2 id="use-cases-when-and-when-not-to-use-kubernetes">Use Cases: When (and When Not) to Use Kubernetes</h2>
+<p>Kubernetes is an incredibly powerful tool – but it’s not always the right solution from day one.</p>
+<p>Let’s break down when it makes sense to use Kubernetes and when it might be overkill</p>
+<h3 id="when-you-should-use-kubernetes">When You Should Use Kubernetes</h3>
+<p>Kubernetes becomes essential in these scenarios:</p>
+<blockquote>
+<p>Your Application Is Made of Many Microservices</p>
+</blockquote>
+<p>If your app is broken down into multiple microservices – like user authentication, payments, orders, notifications, and more – it’s a good sign that Kubernetes might eventually help.</p>
+<p>Kubernetes can:</p>
+<p>Help manage each microservice independently</p>
+<p>Automatically scale each one based on demand</p>
+<p>Restart failed services automatically</p>
+<p>Make it easier to roll out updates to specific parts of the application</p>
+<blockquote>
+<p>You’re Getting Steady and High Traffic</p>
+</blockquote>
+<p>It’s not just about complexity – it’s about demand.</p>
+<p>If your app receives a consistent, high volume of users (like hundreds or thousands every day), and you start seeing signs that your servers are getting overloaded, Kubernetes shines here. It can:</p>
+<p>Automatically increase resources when traffic surges</p>
+<p>Balance the load across multiple servers</p>
+<p>Prevent downtime due to traffic spikes</p>
+<blockquote>
+<p>You Want Portability and Cloud Independence</p>
+</blockquote>
+<p>If your business doesn’t want to be locked into just one cloud provider (for example, only AWS), Kubernetes gives you flexibility. You can move your application between AWS, GCP, Azure – or even to your own data center – with fewer changes.</p>
+<blockquote>
+<p>Your DevOps Team Is Growing</p>
+</blockquote>
+<p>When you have multiple developers or teams working on different parts of the app, Kubernetes helps:</p>
+<p>Organize and isolate workloads per team</p>
+<p>Improve collaboration and consistency</p>
+<p>Provide easy access control and monitoring</p>
+<h3 id="when-you-should-not-use-kubernetes">When You Should Not Use Kubernetes</h3>
+<p>Let’s be honest: Kubernetes is not for everyone, especially not at the beginning.</p>
+<blockquote>
+<p>You Just Launched Your App</p>
+</blockquote>
+<p>In the early days of your product, when you’ve just launched and traffic is still low, Kubernetes is overkill. You don’t need its complexity (yet).</p>
+<p>Instead, deploy your app or each microservice on a simple virtual machine (VM). It’s cheaper and faster to get started.</p>
+<blockquote>
+<p>You Don’t Need Auto-scaling (Yet)</p>
+</blockquote>
+<p>If traffic to your app is still small and manageable, a single server (or a few of them) can easily handle the load. In that case, it’s better to:</p>
+<p>Deploy your microservices manually or with Docker Compose</p>
+<p>Monitor and scale manually when needed</p>
+<p>Keep things simple until the need for automation becomes obvious</p>
+<blockquote>
+<p>You Don’t Have a DevOps Team</p>
+</blockquote>
+<p>Kubernetes is powerful – but it needs expertise to set up and maintain. If you don’t have a DevOps engineer or someone who understands Kubernetes, it may cause more problems than it solves.</p>
+<p>Hiring a DevOps team can be expensive, and setting up Kubernetes incorrectly can lead to outages, security risks, or wasted resources 💸</p>
+<h3 id="when-to-move-to-kubernetes">When to Move to Kubernetes</h3>
+<p>So, what’s the best path forward?</p>
+<p>Here’s a simple roadmap:</p>
+<p>Start small: Deploy your app (or microservices) on one or a few VMs</p>
+<p>Watch traffic: As user demand grows, increase VM size or replicate the app manually</p>
+<p>Track pain points: If scaling becomes too manual, or if services crash under load...</p>
+<p>Then adopt Kubernetes</p>
+<p>It’s not about how complex your app is – it’s about when the traffic and growth demand an upgrade in how you manage things.</p>
+<h2 id="tldr-for-founders-and-devops-teams">TL;DR for Founders and DevOps Teams</h2>
+<p>Don’t jump to Kubernetes just because it’s trendy</p>
+<p>Use it only when traffic grows steadily and auto-scaling becomes necessary</p>
+<p>Kubernetes is most valuable when you want to scale reliably and efficiently</p>
+<p>Before that point, stick to simple deployments – it’ll save you time, money, and stress</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Wow! What a journey we’ve been on</p>
+<p>We started by answering the big question — What is Kubernetes? We discovered that it’s not some mythical beast, but a powerful orchestration tool that helps us manage, deploy, scale, and maintain containerized applications in a smarter way.</p>
+<p>Then, we took a step back in time to see how applications were deployed before Kubernetes — the headaches of manually installing software on servers, spinning up separate cloud instances for every microservice, and racking up huge cloud bills just to stay afloat. We also saw how containers simplified things, but even they had their own limitations when managed at scale.</p>
+<p>That’s where Kubernetes came to the rescue</p>
+<p>We explored:</p>
+<p>The problems Kubernetes solves – like auto-scaling, efficient resource management, cost savings, and seamless container grouping.</p>
+<p>Kubernetes architecture and components – breaking down complex terms like the cluster, master node, worker nodes, Pods, Services, Kubelet, and more, into simple, easy-to-digest ideas.</p>
+<p>Kubernetes workloads like Deployments, Pods, Services, DaemonSets, and StatefulSets, and what they do behind the scenes to keep our apps running reliably.</p>
+<p>From theory to practice, we even got our hands dirty:</p>
+<p>We created a free Kubernetes cluster using Play with Kubernetes</p>
+<p>Deployed a real application using both imperative (direct command) and declarative (manifest file) approaches</p>
+<p>Understood why the declarative method makes our infrastructure easier to manage, especially when our systems grow.</p>
+<p>Then we took a business lens 🔍 and looked at:</p>
+<p>The advantages of Kubernetes – from auto-scaling during traffic surges, to cost efficiency, and cloud-agnostic deployment.</p>
+<p>And also the disadvantages – like needing experienced DevOps engineers and not being ideal for every stage of a product's lifecycle.</p>
+<p>Finally, we wrapped up with real-life use cases, highlighting when Kubernetes is a must-have, and when it’s better to wait – especially for early-stage startups still trying to find their audience.</p>
+<p>So, whether you're a DevOps newbie, a startup founder, or just someone curious about how modern tech keeps your favorite apps online – you now have a strong foundational understanding of Kubernetes</p>
+<p>Kubernetes is powerful, but it doesn't have to be overwhelming. With a solid grasp of the basics (which you now have), you're well on your way to managing scalable applications like a pro.</p>
+<p>Start simple. Grow smart. And when the time is right – Kubernetes will be your best friend.</p>
+<h2 id="study-further">Study Further</h2>
+<p>If you would like to learn more about Kubernetes, you can check out the courses below:</p>
+<p>Docker &amp; Kubernetes: The Practical Guide (Academind - Udemy)</p>
+<p>Certified Kubernetes Application Developer (CKAD) Specialization (Coursera)</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
